@@ -1,9 +1,9 @@
 aid: rsc
 name: RSC
 description: >-
-  Use our web services to enrich your apps, in-house systems, and workflow tools
-  with data held by the Royal Society of Chemistry. Our APIs provide a better
-  interface to work with ChemSpider data. 
+  Use our web services to enrich your apps, in-house systems, and workflow tools with
+  data held by the Royal Society of Chemistry. Our APIs provide a better interface
+  to work with ChemSpider data.
 type: Index
 position: Consumer
 access: 3rd-Party
@@ -12,15 +12,16 @@ tags:
   - API
 created: '2025-03-01'
 modified: '2026-03-16'
-url: https://raw.githubusercontent.com/api-evangelist/rsc/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/rsc/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
   - aid: rsc:rsc
     name: RSC
     description: >-
-      Use our web services to enrich your apps, in-house systems, and workflow
-      tools with data held by the Royal Society of Chemistry. Our APIs provide a
-      better interface to work with ChemSpider data. 
+      Use our web services to enrich your apps, in-house systems, and workflow tools
+      with data held by the Royal Society of Chemistry. Our APIs provide a better
+      interface to work with ChemSpider data.
     humanURL: ' https://developer.rsc.org/'
     tags:
       - API
