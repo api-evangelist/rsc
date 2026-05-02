@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.rsc.org/schemas/compound",
+  "title": "ChemSpider Compound",
+  "description": "A chemical compound record from the RSC ChemSpider database",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "ChemSpider record ID (CSID)"
+    },
+    "smiles": {
+      "type": "string",
+      "description": "SMILES representation of the compound structure"
+    },
+    "formula": {
+      "type": "string",
+      "description": "Molecular formula (e.g., C6H12O6)"
+    },
+    "averageMass": {
+      "type": "number",
+      "description": "Average molecular mass in g/mol"
+    },
+    "molecularWeight": {
+      "type": "number",
+      "description": "Molecular weight in g/mol"
+    },
+    "monoisotopicMass": {
+      "type": "number",
+      "description": "Monoisotopic mass in g/mol"
+    },
+    "nominalMass": {
+      "type": "integer",
+      "description": "Nominal mass (integer) in g/mol"
+    },
+    "commonName": {
+      "type": "string",
+      "description": "Common or IUPAC name of the compound"
+    },
+    "referenceCount": {
+      "type": "integer",
+      "description": "Total number of references in ChemSpider",
+      "minimum": 0
+    },
+    "dataSourceCount": {
+      "type": "integer",
+      "description": "Number of external data sources containing this compound",
+      "minimum": 0
+    },
+    "pubmedCount": {
+      "type": "integer",
+      "description": "Number of PubMed articles referencing this compound",
+      "minimum": 0
+    },
+    "rscCount": {
+      "type": "integer",
+      "description": "Number of RSC publications referencing this compound",
+      "minimum": 0
+    },
+    "mol2D": {
+      "type": "string",
+      "description": "2D MOL file representation of the compound"
+    },
+    "mol3D": {
+      "type": "string",
+      "description": "3D MOL file representation of the compound"
+    }
+  },
+  "required": ["id", "formula"]
+}

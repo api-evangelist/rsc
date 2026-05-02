@@ -1,0 +1,755 @@
+openapi: 3.1.0
+info:
+  title: RSC ChemSpider Compounds API
+  description: >-
+    The RSC ChemSpider Compounds API provides programmatic access to the
+    ChemSpider chemical database, which contains over 88 million unique
+    chemical compounds. The API supports compound searching by name, SMILES,
+    InChI, InChIKey, molecular formula, mass, and elemental composition.
+    Authenticated users can retrieve compound records with detailed properties,
+    fetch external references, images, and MOL files, and perform batch
+    operations. A tools endpoint supports chemical format conversions and
+    InChIKey validation. All requests require an API key obtained from the
+    RSC Developer Portal.
+  version: '1'
+  contact:
+    name: RSC Developer Support
+    url: https://developer.rsc.org/
+  termsOfService: https://www.rsc.org/legal/
+servers:
+  - url: https://api.rsc.org/compounds/v1
+    description: ChemSpider Production API
+tags:
+  - name: Filter
+    description: Search and filter chemical compounds by various properties.
+  - name: Records
+    description: Retrieve compound record details, images, and molecular files.
+  - name: Lookups
+    description: Look up reference data such as available data sources.
+  - name: Tools
+    description: Chemical format conversion and validation utilities.
+paths:
+  /filter/name:
+    post:
+      operationId: filterByName
+      summary: Filter Compounds By Name
+      description: >-
+        Submit a name query to search for chemical compounds matching the
+        specified name. Returns a query ID that can be used to poll for
+        results using the filter status and results endpoints.
+      tags:
+        - Filter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: The compound name to search for
+                orderBy:
+                  type: string
+                  description: Sort field for results
+                  enum:
+                    - recordId
+                    - massDefect
+                    - molecularWeight
+                    - referenceCount
+                    - dataSourceCount
+                    - pubmedCount
+                    - rscCount
+                orderDirection:
+                  type: string
+                  description: Sort direction
+                  enum:
+                    - ascending
+                    - descending
+      responses:
+        '200':
+          description: Query accepted; returns query ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized - API key missing or invalid
+      security:
+        - apiKeyAuth: []
+  /filter/smiles:
+    post:
+      operationId: filterBySmiles
+      summary: Filter Compounds By SMILES
+      description: >-
+        Submit a SMILES string to find matching chemical compounds. Returns
+        a query ID for polling results.
+      tags:
+        - Filter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - smiles
+              properties:
+                smiles:
+                  type: string
+                  description: The SMILES string for the compound
+                orderBy:
+                  type: string
+                  description: Sort field for results
+                orderDirection:
+                  type: string
+                  description: Sort direction
+      responses:
+        '200':
+          description: Query accepted; returns query ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '401':
+          description: Unauthorized
+      security:
+        - apiKeyAuth: []
+  /filter/inchi:
+    post:
+      operationId: filterByInchi
+      summary: Filter Compounds By InChI
+      description: >-
+        Submit an InChI string to find matching chemical compounds. Returns
+        a query ID for polling results.
+      tags:
+        - Filter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - inchi
+              properties:
+                inchi:
+                  type: string
+                  description: The InChI string for the compound
+      responses:
+        '200':
+          description: Query accepted; returns query ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '401':
+          description: Unauthorized
+      security:
+        - apiKeyAuth: []
+  /filter/inchikey:
+    post:
+      operationId: filterByInchikey
+      summary: Filter Compounds By InChIKey
+      description: >-
+        Submit an InChIKey to find the matching chemical compound. Returns
+        a query ID for polling results.
+      tags:
+        - Filter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - inchikey
+              properties:
+                inchikey:
+                  type: string
+                  description: The InChIKey for the compound
+      responses:
+        '200':
+          description: Query accepted; returns query ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '401':
+          description: Unauthorized
+      security:
+        - apiKeyAuth: []
+  /filter/formula:
+    post:
+      operationId: filterByFormula
+      summary: Filter Compounds By Formula
+      description: >-
+        Search for compounds matching a given molecular formula. Optionally
+        restrict to specific data sources.
+      tags:
+        - Filter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - formula
+              properties:
+                formula:
+                  type: string
+                  description: Molecular formula (e.g., C6H12O6)
+                dataSources:
+                  type: array
+                  items:
+                    type: string
+                  description: List of data sources to restrict search
+                orderBy:
+                  type: string
+                  description: Sort field
+                orderDirection:
+                  type: string
+                  description: Sort direction
+      responses:
+        '200':
+          description: Query accepted; returns query ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '401':
+          description: Unauthorized
+      security:
+        - apiKeyAuth: []
+  /filter/mass:
+    post:
+      operationId: filterByMass
+      summary: Filter Compounds By Mass
+      description: >-
+        Search for compounds within a mass range. The mass and mass_range
+        parameters define the target mass and acceptable deviation.
+      tags:
+        - Filter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - mass
+                - massRange
+              properties:
+                mass:
+                  type: number
+                  description: Target molecular mass
+                massRange:
+                  type: number
+                  description: Acceptable mass deviation (+/-)
+                dataSources:
+                  type: array
+                  items:
+                    type: string
+                  description: Data sources to restrict search
+                orderBy:
+                  type: string
+                  description: Sort field
+                orderDirection:
+                  type: string
+                  description: Sort direction
+      responses:
+        '200':
+          description: Query accepted; returns query ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '401':
+          description: Unauthorized
+      security:
+        - apiKeyAuth: []
+  /filter/{queryId}/status:
+    get:
+      operationId: getFilterStatus
+      summary: Get Filter Query Status
+      description: >-
+        Poll the status of a previously submitted filter query using its
+        query ID. Returns the current status, result count, and any message.
+      tags:
+        - Filter
+      parameters:
+        - name: queryId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The query ID returned by a filter endpoint
+      responses:
+        '200':
+          description: Query status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterStatus'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Query not found
+      security:
+        - apiKeyAuth: []
+  /filter/{queryId}/results:
+    get:
+      operationId: getFilterResults
+      summary: Get Filter Query Results
+      description: >-
+        Retrieve the record IDs for a completed filter query. Supports
+        pagination via start and count parameters.
+      tags:
+        - Filter
+      parameters:
+        - name: queryId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The query ID returned by a filter endpoint
+        - name: start
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+          description: Zero-based index of first result to return
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+          description: Number of results to return
+      responses:
+        '200':
+          description: Array of record IDs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterResults'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Query not found
+      security:
+        - apiKeyAuth: []
+  /records/{recordId}/details:
+    get:
+      operationId: getRecordDetails
+      summary: Get Record Details
+      description: >-
+        Retrieve detailed information for a specific compound record by
+        its record ID. Returns fields including SMILES, Formula, mass
+        values, CommonName, reference counts, and 2D/3D mol representations.
+      tags:
+        - Records
+      parameters:
+        - name: recordId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ChemSpider record ID
+        - name: fields
+          in: query
+          required: false
+          schema:
+            type: string
+          description: >-
+            Comma-separated list of fields to return (e.g.,
+            SMILES,Formula,CommonName,MolecularWeight)
+      responses:
+        '200':
+          description: Compound record details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompoundRecord'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Record not found
+      security:
+        - apiKeyAuth: []
+  /records/batch:
+    post:
+      operationId: getRecordsBatch
+      summary: Get Records Batch Details
+      description: >-
+        Retrieve detailed information for multiple compound records in a
+        single request. Accepts up to 100 record IDs per request.
+      tags:
+        - Records
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - recordIds
+              properties:
+                recordIds:
+                  type: array
+                  items:
+                    type: integer
+                  maxItems: 100
+                  description: List of ChemSpider record IDs (max 100)
+                fields:
+                  type: string
+                  description: Comma-separated list of fields to return
+      responses:
+        '200':
+          description: Array of compound record details
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompoundRecord'
+        '401':
+          description: Unauthorized
+      security:
+        - apiKeyAuth: []
+  /records/{recordId}/externalreferences:
+    get:
+      operationId: getExternalReferences
+      summary: Get External References
+      description: >-
+        Retrieve external database references for a compound record. Optionally
+        filter by data source names.
+      tags:
+        - Records
+      parameters:
+        - name: recordId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ChemSpider record ID
+        - name: dataSources
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Comma-separated list of data source names to filter by
+      responses:
+        '200':
+          description: External references for the record
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExternalReference'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Record not found
+      security:
+        - apiKeyAuth: []
+  /records/{recordId}/image:
+    get:
+      operationId: getRecordImage
+      summary: Get Compound Image
+      description: >-
+        Retrieve the 2D structural image for a compound record. Returns the
+        image as base64-encoded PNG data.
+      tags:
+        - Records
+      parameters:
+        - name: recordId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ChemSpider record ID
+      responses:
+        '200':
+          description: Base64-encoded compound image
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  image:
+                    type: string
+                    description: Base64-encoded PNG image of compound structure
+        '401':
+          description: Unauthorized
+        '404':
+          description: Record not found
+      security:
+        - apiKeyAuth: []
+  /records/{recordId}/mol:
+    get:
+      operationId: getRecordMol
+      summary: Get Compound MOL File
+      description: >-
+        Retrieve the MOL file for a compound record. Returns the MOL file
+        content as a string.
+      tags:
+        - Records
+      parameters:
+        - name: recordId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ChemSpider record ID
+      responses:
+        '200':
+          description: MOL file content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mol:
+                    type: string
+                    description: MOL file string for the compound
+        '401':
+          description: Unauthorized
+        '404':
+          description: Record not found
+      security:
+        - apiKeyAuth: []
+  /lookups/datasources:
+    get:
+      operationId: getDataSources
+      summary: Get Available Data Sources
+      description: >-
+        Retrieve the list of data sources available in ChemSpider. Use these
+        names when filtering compound searches by data source.
+      tags:
+        - Lookups
+      responses:
+        '200':
+          description: List of available data sources
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          description: Unauthorized
+      security:
+        - apiKeyAuth: []
+  /tools/convert:
+    post:
+      operationId: convertChemicalFormat
+      summary: Convert Chemical Format
+      description: >-
+        Convert a chemical identifier from one format to another. Supported
+        input/output formats include SMILES, InChI, InChIKey, and Mol. Valid
+        conversion pairs include: InChI to InChIKey, InChI to Mol, InChI to
+        SMILES, InChIKey to InChI, InChIKey to Mol, Mol to InChI, Mol to
+        InChIKey, and SMILES to InChI.
+      tags:
+        - Tools
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - input
+                - inputFormat
+                - outputFormat
+              properties:
+                input:
+                  type: string
+                  description: The chemical identifier to convert
+                inputFormat:
+                  type: string
+                  description: Input format of the identifier
+                  enum:
+                    - SMILES
+                    - InChI
+                    - InChIKey
+                    - Mol
+                outputFormat:
+                  type: string
+                  description: Desired output format
+                  enum:
+                    - SMILES
+                    - InChI
+                    - InChIKey
+                    - Mol
+      responses:
+        '200':
+          description: Converted chemical identifier
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  output:
+                    type: string
+                    description: The converted chemical identifier
+        '400':
+          description: Invalid input or unsupported conversion
+        '401':
+          description: Unauthorized
+      security:
+        - apiKeyAuth: []
+  /tools/validate/inchikey:
+    post:
+      operationId: validateInchikey
+      summary: Validate InChIKey
+      description: >-
+        Validate whether a given string is a correctly formed InChIKey.
+        Returns a boolean indicating validity.
+      tags:
+        - Tools
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - inchikey
+              properties:
+                inchikey:
+                  type: string
+                  description: The InChIKey string to validate
+      responses:
+        '200':
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                    description: Whether the InChIKey is valid
+        '401':
+          description: Unauthorized
+      security:
+        - apiKeyAuth: []
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: >-
+        API key obtained from the RSC Developer Portal at developer.rsc.org.
+        Register and create an application to receive an API key.
+  schemas:
+    QueryResponse:
+      type: object
+      description: Response from a filter query submission
+      properties:
+        queryId:
+          type: string
+          description: Unique identifier for the submitted query
+    FilterStatus:
+      type: object
+      description: Status of a filter query
+      properties:
+        status:
+          type: string
+          description: Current query status (Processing, Complete, Failed)
+          enum:
+            - Processing
+            - Complete
+            - Failed
+        count:
+          type: integer
+          description: Number of results found so far
+        message:
+          type: string
+          description: Status message or error description
+    FilterResults:
+      type: object
+      description: Results from a completed filter query
+      properties:
+        queryId:
+          type: string
+          description: The query ID
+        results:
+          type: array
+          items:
+            type: integer
+          description: Array of ChemSpider record IDs matching the query
+    CompoundRecord:
+      type: object
+      description: Detailed information about a chemical compound record
+      properties:
+        id:
+          type: integer
+          description: ChemSpider record ID
+        smiles:
+          type: string
+          description: SMILES representation of the compound
+        formula:
+          type: string
+          description: Molecular formula
+        averageMass:
+          type: number
+          description: Average molecular mass
+        molecularWeight:
+          type: number
+          description: Molecular weight
+        monoisotopicMass:
+          type: number
+          description: Monoisotopic mass
+        nominalMass:
+          type: number
+          description: Nominal mass
+        commonName:
+          type: string
+          description: Common name of the compound
+        referenceCount:
+          type: integer
+          description: Number of references in ChemSpider
+        dataSourceCount:
+          type: integer
+          description: Number of data sources containing this compound
+        pubmedCount:
+          type: integer
+          description: Number of PubMed references
+        rscCount:
+          type: integer
+          description: Number of RSC publications referencing this compound
+        mol2D:
+          type: string
+          description: 2D MOL file representation
+        mol3D:
+          type: string
+          description: 3D MOL file representation
+    ExternalReference:
+      type: object
+      description: An external database reference for a compound
+      properties:
+        source:
+          type: string
+          description: Name of the external data source
+        sourceUrl:
+          type: string
+          format: uri
+          description: URL of the data source
+        externalId:
+          type: string
+          description: Identifier in the external system
+        externalUrl:
+          type: string
+          format: uri
+          description: Direct URL to the compound in the external system

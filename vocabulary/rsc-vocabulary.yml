@@ -1,0 +1,117 @@
+name: RSC ChemSpider Vocabulary
+description: >-
+  Domain vocabulary and taxonomy for RSC ChemSpider API, covering chemical
+  compound terminology, cheminformatics concepts, and API operational terms.
+version: "1.0"
+created: "2026-05-02"
+modified: "2026-05-02"
+
+domains:
+  - name: Chemical Identifiers
+    description: Standard formats for uniquely identifying chemical compounds
+    terms:
+      - term: SMILES
+        definition: >-
+          Simplified Molecular-Input Line-Entry System. A notation that allows
+          a user to represent a chemical structure using a short ASCII string.
+        example: "CC(=O)Oc1ccccc1C(=O)O"
+      - term: InChI
+        definition: >-
+          International Chemical Identifier. A standard textual identifier for
+          chemical substances developed by IUPAC.
+        example: "InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)"
+      - term: InChIKey
+        definition: >-
+          A hashed version of the full InChI, providing a fixed 27-character
+          string representation of a chemical compound.
+        example: "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"
+      - term: Mol
+        definition: >-
+          MDL Molfile format. A file format for holding information about the
+          atoms, bonds, connectivity and coordinates of a molecule.
+
+  - name: Compound Properties
+    description: Physical and chemical properties of compounds
+    terms:
+      - term: Molecular Formula
+        definition: >-
+          A representation of the types and counts of atoms in a molecule
+          (e.g., C6H12O6 for glucose).
+      - term: Molecular Weight
+        definition: >-
+          The sum of the atomic weights of all atoms in a molecule, expressed
+          in g/mol (Daltons).
+      - term: Monoisotopic Mass
+        definition: >-
+          The mass of a molecule calculated using the masses of the most
+          abundant naturally occurring isotope of each element.
+      - term: Average Mass
+        definition: >-
+          The mass of a molecule calculated using the average atomic weights
+          of all naturally occurring isotopes weighted by abundance.
+      - term: Nominal Mass
+        definition: >-
+          The mass of a molecule calculated using the integer mass values
+          of the most abundant isotopes of each element.
+
+  - name: Search Operations
+    description: Operations for searching and filtering chemical compounds
+    terms:
+      - term: Filter Query
+        definition: >-
+          An asynchronous search operation that returns a query ID for
+          polling. Results are retrieved by polling the status and results
+          endpoints.
+      - term: Query ID
+        definition: >-
+          A unique identifier returned by a filter endpoint used to track
+          the status of an asynchronous search operation and retrieve results.
+      - term: Batch Operation
+        definition: >-
+          An API operation that accepts multiple identifiers in a single
+          request, such as retrieving details for up to 100 record IDs at once.
+
+  - name: Database References
+    description: External databases and reference systems linked to ChemSpider
+    terms:
+      - term: CSID
+        definition: >-
+          ChemSpider ID. A unique identifier assigned to each chemical compound
+          in the ChemSpider database.
+      - term: Data Source
+        definition: >-
+          An external database or data repository that contributes compound
+          data to ChemSpider (e.g., PubChem, ChEBI, DrugBank).
+      - term: External Reference
+        definition: >-
+          A link from a ChemSpider compound record to the compound's record
+          in another chemical database.
+
+  - name: API Operations
+    description: Classification of API endpoint types and behaviors
+    terms:
+      - term: Filter Endpoint
+        definition: >-
+          A POST endpoint that initiates an asynchronous search and returns
+          a queryId for subsequent polling.
+      - term: Record Endpoint
+        definition: >-
+          A GET endpoint that retrieves detailed information about a specific
+          compound by its ChemSpider record ID.
+      - term: Tools Endpoint
+        definition: >-
+          Utility endpoints for tasks like format conversion and validation
+          that do not involve database lookups.
+      - term: Lookup Endpoint
+        definition: >-
+          An endpoint that returns reference data such as available data
+          source names for use in filtered searches.
+
+tags:
+  - Chemistry
+  - Cheminformatics
+  - Chemical Data
+  - Science
+  - Pharmaceutical
+  - Academic Research
+  - Drug Discovery

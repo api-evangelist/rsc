@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.rsc.org/compounds/v1/records/2157/details?fields=SMILES,Formula,CommonName,MolecularWeight,MonoisotopicMass",
+    "headers": {
+      "apikey": "YOUR_API_KEY"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "id": 2157,
+      "smiles": "CC(=O)Oc1ccccc1C(=O)O",
+      "formula": "C9H8O4",
+      "commonName": "Aspirin",
+      "molecularWeight": 180.157,
+      "monoisotopicMass": 180.0422682,
+      "averageMass": 180.157,
+      "referenceCount": 248,
+      "dataSourceCount": 36,
+      "pubmedCount": 12543,
+      "rscCount": 891
+    }
+  }
+}

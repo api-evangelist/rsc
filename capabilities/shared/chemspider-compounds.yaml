@@ -1,0 +1,512 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "RSC ChemSpider Compounds API"
+  description: >-
+    Shared capability definition for the RSC ChemSpider Compounds API. Provides
+    access to over 88 million unique chemical compounds with search, record
+    retrieval, format conversion, and data source lookup operations.
+  tags:
+    - Chemistry
+    - Cheminformatics
+    - Compounds
+    - Chemical Search
+    - RSC
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      RSC_API_KEY: RSC_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: chemspider-compounds
+      baseUri: https://api.rsc.org/compounds/v1
+      description: "RSC ChemSpider Compounds API for searching and retrieving chemical compound data"
+      authentication:
+        type: apikey
+        key: apikey
+        value: "{{RSC_API_KEY}}"
+        placement: header
+      resources:
+        - name: filter
+          path: /filter
+          description: Search and filter chemical compounds by various properties
+          operations:
+            - name: filter-by-name
+              method: POST
+              description: "Search for compounds by name; returns query ID for polling"
+              inputParameters:
+                - name: name
+                  in: body
+                  type: string
+                  required: true
+                  description: "Compound name to search"
+                - name: orderBy
+                  in: body
+                  type: string
+                  required: false
+                  description: "Sort field for results"
+                - name: orderDirection
+                  in: body
+                  type: string
+                  required: false
+                  description: "Sort direction (ascending/descending)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: filter-by-smiles
+              method: POST
+              description: "Search for compounds by SMILES string; returns query ID"
+              inputParameters:
+                - name: smiles
+                  in: body
+                  type: string
+                  required: true
+                  description: "SMILES string for compound search"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: filter-by-inchi
+              method: POST
+              description: "Search for compounds by InChI string; returns query ID"
+              inputParameters:
+                - name: inchi
+                  in: body
+                  type: string
+                  required: true
+                  description: "InChI string for compound search"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: filter-by-inchikey
+              method: POST
+              description: "Search for compounds by InChIKey; returns query ID"
+              inputParameters:
+                - name: inchikey
+                  in: body
+                  type: string
+                  required: true
+                  description: "InChIKey for compound search"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: filter-by-formula
+              method: POST
+              description: "Search for compounds by molecular formula; returns query ID"
+              inputParameters:
+                - name: formula
+                  in: body
+                  type: string
+                  required: true
+                  description: "Molecular formula (e.g., C6H12O6)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: filter-by-mass
+              method: POST
+              description: "Search for compounds within a mass range; returns query ID"
+              inputParameters:
+                - name: mass
+                  in: body
+                  type: number
+                  required: true
+                  description: "Target molecular mass"
+                - name: massRange
+                  in: body
+                  type: number
+                  required: true
+                  description: "Acceptable mass deviation"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-filter-status
+              method: GET
+              description: "Poll status of a submitted filter query by query ID"
+              inputParameters:
+                - name: queryId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Query ID from filter submission"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-filter-results
+              method: GET
+              description: "Retrieve record IDs for a completed filter query"
+              inputParameters:
+                - name: queryId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Query ID from filter submission"
+                - name: start
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Zero-based start index for pagination"
+                - name: count
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Number of results to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: records
+          path: /records
+          description: Retrieve compound record details, images, and MOL files
+          operations:
+            - name: get-record-details
+              method: GET
+              description: "Get detailed properties for a compound by record ID"
+              inputParameters:
+                - name: recordId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "ChemSpider record ID"
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated list of fields to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-records-batch
+              method: POST
+              description: "Get details for multiple compound records in one request"
+              inputParameters:
+                - name: recordIds
+                  in: body
+                  type: array
+                  required: true
+                  description: "List of ChemSpider record IDs (max 100)"
+                - name: fields
+                  in: body
+                  type: string
+                  required: false
+                  description: "Comma-separated list of fields to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-external-references
+              method: GET
+              description: "Get external database references for a compound record"
+              inputParameters:
+                - name: recordId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "ChemSpider record ID"
+                - name: dataSources
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated data source names to filter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-record-image
+              method: GET
+              description: "Get 2D structural image for a compound record"
+              inputParameters:
+                - name: recordId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "ChemSpider record ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-record-mol
+              method: GET
+              description: "Get MOL file content for a compound record"
+              inputParameters:
+                - name: recordId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "ChemSpider record ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: lookups
+          path: /lookups
+          description: Look up reference data including available data sources
+          operations:
+            - name: get-data-sources
+              method: GET
+              description: "List all available data sources in ChemSpider"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: tools
+          path: /tools
+          description: Chemical format conversion and validation utilities
+          operations:
+            - name: convert-chemical-format
+              method: POST
+              description: "Convert a chemical identifier between SMILES, InChI, InChIKey, and Mol formats"
+              inputParameters:
+                - name: input
+                  in: body
+                  type: string
+                  required: true
+                  description: "Chemical identifier to convert"
+                - name: inputFormat
+                  in: body
+                  type: string
+                  required: true
+                  description: "Input format (SMILES, InChI, InChIKey, Mol)"
+                - name: outputFormat
+                  in: body
+                  type: string
+                  required: true
+                  description: "Output format (SMILES, InChI, InChIKey, Mol)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: validate-inchikey
+              method: POST
+              description: "Validate whether a string is a correctly formed InChIKey"
+              inputParameters:
+                - name: inchikey
+                  in: body
+                  type: string
+                  required: true
+                  description: "InChIKey string to validate"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: chemspider-compounds-api
+      resources:
+        - path: /v1/filter/name
+          name: filter-by-name
+          description: "Filter compounds by name"
+          operations:
+            - method: POST
+              name: filter-by-name
+              description: "Submit name search query"
+              call: "chemspider-compounds.filter-by-name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/filter/smiles
+          name: filter-by-smiles
+          description: "Filter compounds by SMILES"
+          operations:
+            - method: POST
+              name: filter-by-smiles
+              description: "Submit SMILES search query"
+              call: "chemspider-compounds.filter-by-smiles"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/filter/{queryId}/status
+          name: filter-status
+          description: "Get filter query status"
+          operations:
+            - method: GET
+              name: get-filter-status
+              description: "Poll filter query status"
+              call: "chemspider-compounds.get-filter-status"
+              with:
+                queryId: "rest.queryId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/filter/{queryId}/results
+          name: filter-results
+          description: "Get filter query results"
+          operations:
+            - method: GET
+              name: get-filter-results
+              description: "Retrieve completed filter results"
+              call: "chemspider-compounds.get-filter-results"
+              with:
+                queryId: "rest.queryId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/records/{recordId}/details
+          name: record-details
+          description: "Get compound record details"
+          operations:
+            - method: GET
+              name: get-record-details
+              description: "Get compound details by record ID"
+              call: "chemspider-compounds.get-record-details"
+              with:
+                recordId: "rest.recordId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/records/batch
+          name: records-batch
+          description: "Get batch compound record details"
+          operations:
+            - method: POST
+              name: get-records-batch
+              description: "Get details for multiple records"
+              call: "chemspider-compounds.get-records-batch"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/tools/convert
+          name: convert
+          description: "Convert chemical formats"
+          operations:
+            - method: POST
+              name: convert-chemical-format
+              description: "Convert between chemical identifier formats"
+              call: "chemspider-compounds.convert-chemical-format"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: chemspider-compounds-mcp
+      transport: http
+      tools:
+        - name: filter-compounds-by-name
+          description: "Search ChemSpider for compounds by name"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "chemspider-compounds.filter-by-name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: filter-compounds-by-smiles
+          description: "Search ChemSpider for compounds by SMILES"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "chemspider-compounds.filter-by-smiles"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: filter-compounds-by-inchi
+          description: "Search ChemSpider for compounds by InChI"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "chemspider-compounds.filter-by-inchi"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: filter-compounds-by-formula
+          description: "Search ChemSpider for compounds by molecular formula"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "chemspider-compounds.filter-by-formula"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-filter-status
+          description: "Check status of a ChemSpider filter query"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "chemspider-compounds.get-filter-status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-filter-results
+          description: "Retrieve results from a completed ChemSpider filter query"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "chemspider-compounds.get-filter-results"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-compound-details
+          description: "Get detailed properties for a ChemSpider compound by record ID"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "chemspider-compounds.get-record-details"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-compounds-batch
+          description: "Get details for multiple ChemSpider compounds at once"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "chemspider-compounds.get-records-batch"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-external-references
+          description: "Get external database references for a ChemSpider compound"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "chemspider-compounds.get-external-references"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: convert-chemical-format
+          description: "Convert a chemical identifier between SMILES, InChI, InChIKey, and Mol formats"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "chemspider-compounds.convert-chemical-format"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: validate-inchikey
+          description: "Validate whether a string is a correctly formed InChIKey"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "chemspider-compounds.validate-inchikey"
+          outputParameters:
+            - type: object
+              mapping: "$."

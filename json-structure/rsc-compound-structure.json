@@ -1,0 +1,57 @@
+{
+  "title": "RSC ChemSpider Compound Structure",
+  "description": "JSON structure documentation for chemical compound data from the RSC ChemSpider API",
+  "version": "1.0",
+  "entities": {
+    "Compound": {
+      "description": "A chemical compound record from ChemSpider",
+      "fields": {
+        "id": { "type": "integer", "description": "ChemSpider record ID (CSID)", "required": true },
+        "smiles": { "type": "string", "description": "SMILES notation" },
+        "formula": { "type": "string", "description": "Molecular formula", "required": true },
+        "averageMass": { "type": "number", "description": "Average molecular mass (g/mol)" },
+        "molecularWeight": { "type": "number", "description": "Molecular weight (g/mol)" },
+        "monoisotopicMass": { "type": "number", "description": "Monoisotopic mass (g/mol)" },
+        "nominalMass": { "type": "integer", "description": "Nominal mass (g/mol)" },
+        "commonName": { "type": "string", "description": "Common name of the compound" },
+        "referenceCount": { "type": "integer", "description": "Number of ChemSpider references" },
+        "dataSourceCount": { "type": "integer", "description": "Number of data sources" },
+        "pubmedCount": { "type": "integer", "description": "PubMed reference count" },
+        "rscCount": { "type": "integer", "description": "RSC publication count" },
+        "mol2D": { "type": "string", "description": "2D MOL file" },
+        "mol3D": { "type": "string", "description": "3D MOL file" }
+      }
+    },
+    "QueryResponse": {
+      "description": "Response from a filter query submission",
+      "fields": {
+        "queryId": { "type": "string", "description": "Unique query identifier for polling", "required": true }
+      }
+    },
+    "FilterStatus": {
+      "description": "Status of a filter query",
+      "fields": {
+        "status": { "type": "string", "description": "Processing | Complete | Failed", "required": true },
+        "count": { "type": "integer", "description": "Number of results found" },
+        "message": { "type": "string", "description": "Status message or error detail" }
+      }
+    },
+    "ExternalReference": {
+      "description": "An external database reference for a compound",
+      "fields": {
+        "source": { "type": "string", "description": "Data source name", "required": true },
+        "sourceUrl": { "type": "string", "description": "URL of the data source" },
+        "externalId": { "type": "string", "description": "Identifier in the external system" },
+        "externalUrl": { "type": "string", "description": "Direct URL to compound in external system" }
+      }
+    },
+    "ConversionRequest": {
+      "description": "A chemical format conversion request",
+      "fields": {
+        "input": { "type": "string", "description": "Chemical identifier to convert", "required": true },
+        "inputFormat": { "type": "string", "description": "Source format: SMILES | InChI | InChIKey | Mol", "required": true },
+        "outputFormat": { "type": "string", "description": "Target format: SMILES | InChI | InChIKey | Mol", "required": true }
+      }
+    }
+  }
+}

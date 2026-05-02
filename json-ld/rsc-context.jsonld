@@ -1,0 +1,76 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "rsc": "https://developer.rsc.org/vocab/",
+    "schema": "https://schema.org/",
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_",
+    "cheminf": "http://semanticscience.org/resource/CHEMINF_",
+
+    "Compound": "rsc:Compound",
+    "QueryResponse": "rsc:QueryResponse",
+    "FilterStatus": "rsc:FilterStatus",
+    "ExternalReference": "rsc:ExternalReference",
+
+    "id": "@id",
+    "smiles": {
+      "@id": "cheminf:000018",
+      "@type": "schema:Text"
+    },
+    "formula": {
+      "@id": "cheminf:000042",
+      "@type": "schema:Text"
+    },
+    "averageMass": {
+      "@id": "cheminf:000060",
+      "@type": "schema:Number"
+    },
+    "molecularWeight": {
+      "@id": "cheminf:000058",
+      "@type": "schema:Number"
+    },
+    "monoisotopicMass": {
+      "@id": "cheminf:000337",
+      "@type": "schema:Number"
+    },
+    "nominalMass": {
+      "@id": "rsc:nominalMass",
+      "@type": "schema:Integer"
+    },
+    "commonName": {
+      "@id": "schema:name",
+      "@type": "schema:Text"
+    },
+    "referenceCount": {
+      "@id": "rsc:referenceCount",
+      "@type": "schema:Integer"
+    },
+    "dataSourceCount": {
+      "@id": "rsc:dataSourceCount",
+      "@type": "schema:Integer"
+    },
+    "pubmedCount": {
+      "@id": "rsc:pubmedCount",
+      "@type": "schema:Integer"
+    },
+    "queryId": {
+      "@id": "rsc:queryId",
+      "@type": "schema:Text"
+    },
+    "status": {
+      "@id": "rsc:queryStatus",
+      "@type": "schema:Text"
+    },
+    "source": {
+      "@id": "schema:provider",
+      "@type": "schema:Text"
+    },
+    "externalId": {
+      "@id": "schema:identifier",
+      "@type": "schema:Text"
+    },
+    "externalUrl": {
+      "@id": "schema:url",
+      "@type": "@id"
+    }
+  }
+}

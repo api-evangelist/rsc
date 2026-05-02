@@ -1,0 +1,336 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "RSC Chemical Research"
+  description: >-
+    Workflow capability for chemical research and cheminformatics tasks using
+    the RSC ChemSpider database. Supports compound discovery, structure lookup,
+    property analysis, and cross-database reference retrieval for researchers,
+    data scientists, and pharmaceutical developers working with chemical data.
+  tags:
+    - Chemistry
+    - Cheminformatics
+    - Chemical Research
+    - RSC
+    - ChemSpider
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      RSC_API_KEY: RSC_API_KEY
+
+capability:
+  consumes:
+    - import: chemspider-compounds
+      location: ./shared/chemspider-compounds.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: chemical-research-api
+      description: "Unified REST API for chemical compound research and cheminformatics workflows."
+      resources:
+        - path: /v1/compounds/search/name
+          name: compound-name-search
+          description: "Search for compounds by name"
+          operations:
+            - method: POST
+              name: search-compounds-by-name
+              description: "Submit a name-based compound search"
+              call: "chemspider-compounds.filter-by-name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/compounds/search/smiles
+          name: compound-smiles-search
+          description: "Search for compounds by SMILES"
+          operations:
+            - method: POST
+              name: search-compounds-by-smiles
+              description: "Submit a SMILES-based compound search"
+              call: "chemspider-compounds.filter-by-smiles"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/compounds/search/formula
+          name: compound-formula-search
+          description: "Search for compounds by molecular formula"
+          operations:
+            - method: POST
+              name: search-compounds-by-formula
+              description: "Submit a formula-based compound search"
+              call: "chemspider-compounds.filter-by-formula"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/compounds/search/mass
+          name: compound-mass-search
+          description: "Search for compounds by molecular mass"
+          operations:
+            - method: POST
+              name: search-compounds-by-mass
+              description: "Submit a mass-based compound search"
+              call: "chemspider-compounds.filter-by-mass"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/compounds/search/{queryId}/status
+          name: search-status
+          description: "Check status of a compound search query"
+          operations:
+            - method: GET
+              name: get-search-status
+              description: "Poll search query status"
+              call: "chemspider-compounds.get-filter-status"
+              with:
+                queryId: "rest.queryId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/compounds/search/{queryId}/results
+          name: search-results
+          description: "Retrieve results from a completed compound search"
+          operations:
+            - method: GET
+              name: get-search-results
+              description: "Get compound search results"
+              call: "chemspider-compounds.get-filter-results"
+              with:
+                queryId: "rest.queryId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/compounds/{recordId}
+          name: compound-details
+          description: "Get compound details by ChemSpider record ID"
+          operations:
+            - method: GET
+              name: get-compound
+              description: "Retrieve compound properties"
+              call: "chemspider-compounds.get-record-details"
+              with:
+                recordId: "rest.recordId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/compounds/{recordId}/references
+          name: compound-references
+          description: "Get external database references for a compound"
+          operations:
+            - method: GET
+              name: get-compound-references
+              description: "Retrieve external references for a compound"
+              call: "chemspider-compounds.get-external-references"
+              with:
+                recordId: "rest.recordId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/compounds/batch
+          name: compound-batch
+          description: "Get details for multiple compounds"
+          operations:
+            - method: POST
+              name: get-compounds-batch
+              description: "Retrieve details for multiple compounds"
+              call: "chemspider-compounds.get-records-batch"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/tools/convert
+          name: format-conversion
+          description: "Convert between chemical identifier formats"
+          operations:
+            - method: POST
+              name: convert-format
+              description: "Convert SMILES, InChI, InChIKey, or Mol format"
+              call: "chemspider-compounds.convert-chemical-format"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/tools/validate/inchikey
+          name: inchikey-validation
+          description: "Validate InChIKey format"
+          operations:
+            - method: POST
+              name: validate-inchikey
+              description: "Check if an InChIKey is valid"
+              call: "chemspider-compounds.validate-inchikey"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/data-sources
+          name: data-sources
+          description: "List available data sources"
+          operations:
+            - method: GET
+              name: list-data-sources
+              description: "Get all available ChemSpider data sources"
+              call: "chemspider-compounds.get-data-sources"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: chemical-research-mcp
+      transport: http
+      description: "MCP server for AI-assisted chemical research using the RSC ChemSpider database."
+      tools:
+        - name: search-compound-by-name
+          description: "Search the RSC ChemSpider database for compounds by chemical name"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "chemspider-compounds.filter-by-name"
+          with:
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-compound-by-smiles
+          description: "Search the RSC ChemSpider database for compounds matching a SMILES string"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "chemspider-compounds.filter-by-smiles"
+          with:
+            smiles: "tools.smiles"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-compound-by-inchi
+          description: "Search the RSC ChemSpider database for compounds by InChI string"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "chemspider-compounds.filter-by-inchi"
+          with:
+            inchi: "tools.inchi"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-compound-by-inchikey
+          description: "Search the RSC ChemSpider database for a compound by InChIKey"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "chemspider-compounds.filter-by-inchikey"
+          with:
+            inchikey: "tools.inchikey"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-compound-by-formula
+          description: "Search the RSC ChemSpider database for compounds by molecular formula (e.g., C6H12O6)"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "chemspider-compounds.filter-by-formula"
+          with:
+            formula: "tools.formula"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-compound-by-mass
+          description: "Search the RSC ChemSpider database for compounds within a molecular mass range"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "chemspider-compounds.filter-by-mass"
+          with:
+            mass: "tools.mass"
+            massRange: "tools.massRange"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: check-search-status
+          description: "Check the status of a ChemSpider compound search query"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "chemspider-compounds.get-filter-status"
+          with:
+            queryId: "tools.queryId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-search-results
+          description: "Retrieve compound record IDs from a completed ChemSpider search query"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "chemspider-compounds.get-filter-results"
+          with:
+            queryId: "tools.queryId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-compound-details
+          description: "Get detailed chemical properties for a compound by ChemSpider record ID"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "chemspider-compounds.get-record-details"
+          with:
+            recordId: "tools.recordId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-compound-batch
+          description: "Get detailed properties for multiple compounds at once (up to 100)"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "chemspider-compounds.get-records-batch"
+          with:
+            recordIds: "tools.recordIds"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-compound-external-references
+          description: "Get external database references (PubChem, PubMed, etc.) for a compound"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "chemspider-compounds.get-external-references"
+          with:
+            recordId: "tools.recordId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: convert-chemical-identifier
+          description: "Convert a chemical identifier between SMILES, InChI, InChIKey, and Mol file formats"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "chemspider-compounds.convert-chemical-format"
+          with:
+            input: "tools.input"
+            inputFormat: "tools.inputFormat"
+            outputFormat: "tools.outputFormat"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: validate-inchikey
+          description: "Validate whether a string is a correctly formed InChIKey"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "chemspider-compounds.validate-inchikey"
+          with:
+            inchikey: "tools.inchikey"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-data-sources
+          description: "List all data sources available in ChemSpider for filtering searches"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "chemspider-compounds.get-data-sources"
+          outputParameters:
+            - type: object
+              mapping: "$."
