@@ -1,0 +1,388 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: RSC ChemSpider Compounds API — Filter
+  description: 'RSC ChemSpider Compounds API — Filter. 8 operations. Lead operation: Filter Compounds By Formula. Self-contained
+    Naftiko capability covering one Rsc business surface.'
+  tags:
+  - Rsc
+  - Filter
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RSC_API_KEY: RSC_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: chemspider-compounds-filter
+    baseUri: https://api.rsc.org/compounds/v1
+    description: RSC ChemSpider Compounds API — Filter business capability. Self-contained, no shared references.
+    resources:
+    - name: filter-formula
+      path: /filter/formula
+      operations:
+      - name: filterbyformula
+        method: POST
+        description: Filter Compounds By Formula
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: filter-inchi
+      path: /filter/inchi
+      operations:
+      - name: filterbyinchi
+        method: POST
+        description: Filter Compounds By InChI
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: filter-inchikey
+      path: /filter/inchikey
+      operations:
+      - name: filterbyinchikey
+        method: POST
+        description: Filter Compounds By InChIKey
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: filter-mass
+      path: /filter/mass
+      operations:
+      - name: filterbymass
+        method: POST
+        description: Filter Compounds By Mass
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: filter-name
+      path: /filter/name
+      operations:
+      - name: filterbyname
+        method: POST
+        description: Filter Compounds By Name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: filter-smiles
+      path: /filter/smiles
+      operations:
+      - name: filterbysmiles
+        method: POST
+        description: Filter Compounds By SMILES
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: filter-queryId-results
+      path: /filter/{queryId}/results
+      operations:
+      - name: getfilterresults
+        method: GET
+        description: Get Filter Query Results
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: queryId
+          in: path
+          type: string
+          description: The query ID returned by a filter endpoint
+          required: true
+        - name: start
+          in: query
+          type: integer
+          description: Zero-based index of first result to return
+        - name: count
+          in: query
+          type: integer
+          description: Number of results to return
+    - name: filter-queryId-status
+      path: /filter/{queryId}/status
+      operations:
+      - name: getfilterstatus
+        method: GET
+        description: Get Filter Query Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: queryId
+          in: path
+          type: string
+          description: The query ID returned by a filter endpoint
+          required: true
+    authentication:
+      type: apikey
+      key: apikey
+      value: '{{env.RSC_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: chemspider-compounds-filter-rest
+    port: 8080
+    description: REST adapter for RSC ChemSpider Compounds API — Filter. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/filter/formula
+      name: filter-formula
+      description: REST surface for filter-formula.
+      operations:
+      - method: POST
+        name: filterbyformula
+        description: Filter Compounds By Formula
+        call: chemspider-compounds-filter.filterbyformula
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/filter/inchi
+      name: filter-inchi
+      description: REST surface for filter-inchi.
+      operations:
+      - method: POST
+        name: filterbyinchi
+        description: Filter Compounds By InChI
+        call: chemspider-compounds-filter.filterbyinchi
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/filter/inchikey
+      name: filter-inchikey
+      description: REST surface for filter-inchikey.
+      operations:
+      - method: POST
+        name: filterbyinchikey
+        description: Filter Compounds By InChIKey
+        call: chemspider-compounds-filter.filterbyinchikey
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/filter/mass
+      name: filter-mass
+      description: REST surface for filter-mass.
+      operations:
+      - method: POST
+        name: filterbymass
+        description: Filter Compounds By Mass
+        call: chemspider-compounds-filter.filterbymass
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/filter/name
+      name: filter-name
+      description: REST surface for filter-name.
+      operations:
+      - method: POST
+        name: filterbyname
+        description: Filter Compounds By Name
+        call: chemspider-compounds-filter.filterbyname
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/filter/smiles
+      name: filter-smiles
+      description: REST surface for filter-smiles.
+      operations:
+      - method: POST
+        name: filterbysmiles
+        description: Filter Compounds By SMILES
+        call: chemspider-compounds-filter.filterbysmiles
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/filter/{queryid}/results
+      name: filter-queryid-results
+      description: REST surface for filter-queryId-results.
+      operations:
+      - method: GET
+        name: getfilterresults
+        description: Get Filter Query Results
+        call: chemspider-compounds-filter.getfilterresults
+        with:
+          queryId: rest.queryId
+          start: rest.start
+          count: rest.count
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/filter/{queryid}/status
+      name: filter-queryid-status
+      description: REST surface for filter-queryId-status.
+      operations:
+      - method: GET
+        name: getfilterstatus
+        description: Get Filter Query Status
+        call: chemspider-compounds-filter.getfilterstatus
+        with:
+          queryId: rest.queryId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: chemspider-compounds-filter-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for RSC ChemSpider Compounds API — Filter. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: filter-compounds-formula
+      description: Filter Compounds By Formula
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: chemspider-compounds-filter.filterbyformula
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: filter-compounds-inchi
+      description: Filter Compounds By InChI
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: chemspider-compounds-filter.filterbyinchi
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: filter-compounds-inchikey
+      description: Filter Compounds By InChIKey
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: chemspider-compounds-filter.filterbyinchikey
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: filter-compounds-mass
+      description: Filter Compounds By Mass
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: chemspider-compounds-filter.filterbymass
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: filter-compounds-name
+      description: Filter Compounds By Name
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: chemspider-compounds-filter.filterbyname
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: filter-compounds-smiles
+      description: Filter Compounds By SMILES
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: chemspider-compounds-filter.filterbysmiles
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-filter-query-results
+      description: Get Filter Query Results
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: chemspider-compounds-filter.getfilterresults
+      with:
+        queryId: tools.queryId
+        start: tools.start
+        count: tools.count
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-filter-query-status
+      description: Get Filter Query Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: chemspider-compounds-filter.getfilterstatus
+      with:
+        queryId: tools.queryId
+      outputParameters:
+      - type: object
+        mapping: $.

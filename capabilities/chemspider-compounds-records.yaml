@@ -1,0 +1,262 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: RSC ChemSpider Compounds API — Records
+  description: 'RSC ChemSpider Compounds API — Records. 5 operations. Lead operation: Get Records Batch Details. Self-contained
+    Naftiko capability covering one Rsc business surface.'
+  tags:
+  - Rsc
+  - Records
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RSC_API_KEY: RSC_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: chemspider-compounds-records
+    baseUri: https://api.rsc.org/compounds/v1
+    description: RSC ChemSpider Compounds API — Records business capability. Self-contained, no shared references.
+    resources:
+    - name: records-batch
+      path: /records/batch
+      operations:
+      - name: getrecordsbatch
+        method: POST
+        description: Get Records Batch Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: records-recordId-details
+      path: /records/{recordId}/details
+      operations:
+      - name: getrecorddetails
+        method: GET
+        description: Get Record Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: recordId
+          in: path
+          type: integer
+          description: The ChemSpider record ID
+          required: true
+        - name: fields
+          in: query
+          type: string
+          description: Comma-separated list of fields to return (e.g., SMILES,Formula,CommonName,MolecularWeight)
+    - name: records-recordId-externalreferences
+      path: /records/{recordId}/externalreferences
+      operations:
+      - name: getexternalreferences
+        method: GET
+        description: Get External References
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: recordId
+          in: path
+          type: integer
+          description: The ChemSpider record ID
+          required: true
+        - name: dataSources
+          in: query
+          type: string
+          description: Comma-separated list of data source names to filter by
+    - name: records-recordId-image
+      path: /records/{recordId}/image
+      operations:
+      - name: getrecordimage
+        method: GET
+        description: Get Compound Image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: recordId
+          in: path
+          type: integer
+          description: The ChemSpider record ID
+          required: true
+    - name: records-recordId-mol
+      path: /records/{recordId}/mol
+      operations:
+      - name: getrecordmol
+        method: GET
+        description: Get Compound MOL File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: recordId
+          in: path
+          type: integer
+          description: The ChemSpider record ID
+          required: true
+    authentication:
+      type: apikey
+      key: apikey
+      value: '{{env.RSC_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: chemspider-compounds-records-rest
+    port: 8080
+    description: REST adapter for RSC ChemSpider Compounds API — Records. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/records/batch
+      name: records-batch
+      description: REST surface for records-batch.
+      operations:
+      - method: POST
+        name: getrecordsbatch
+        description: Get Records Batch Details
+        call: chemspider-compounds-records.getrecordsbatch
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/records/{recordid}/details
+      name: records-recordid-details
+      description: REST surface for records-recordId-details.
+      operations:
+      - method: GET
+        name: getrecorddetails
+        description: Get Record Details
+        call: chemspider-compounds-records.getrecorddetails
+        with:
+          recordId: rest.recordId
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/records/{recordid}/externalreferences
+      name: records-recordid-externalreferences
+      description: REST surface for records-recordId-externalreferences.
+      operations:
+      - method: GET
+        name: getexternalreferences
+        description: Get External References
+        call: chemspider-compounds-records.getexternalreferences
+        with:
+          recordId: rest.recordId
+          dataSources: rest.dataSources
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/records/{recordid}/image
+      name: records-recordid-image
+      description: REST surface for records-recordId-image.
+      operations:
+      - method: GET
+        name: getrecordimage
+        description: Get Compound Image
+        call: chemspider-compounds-records.getrecordimage
+        with:
+          recordId: rest.recordId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/records/{recordid}/mol
+      name: records-recordid-mol
+      description: REST surface for records-recordId-mol.
+      operations:
+      - method: GET
+        name: getrecordmol
+        description: Get Compound MOL File
+        call: chemspider-compounds-records.getrecordmol
+        with:
+          recordId: rest.recordId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: chemspider-compounds-records-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for RSC ChemSpider Compounds API — Records. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-records-batch-details
+      description: Get Records Batch Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: chemspider-compounds-records.getrecordsbatch
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-record-details
+      description: Get Record Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: chemspider-compounds-records.getrecorddetails
+      with:
+        recordId: tools.recordId
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-external-references
+      description: Get External References
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: chemspider-compounds-records.getexternalreferences
+      with:
+        recordId: tools.recordId
+        dataSources: tools.dataSources
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-compound-image
+      description: Get Compound Image
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: chemspider-compounds-records.getrecordimage
+      with:
+        recordId: tools.recordId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-compound-mol-file
+      description: Get Compound MOL File
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: chemspider-compounds-records.getrecordmol
+      with:
+        recordId: tools.recordId
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,72 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: RSC ChemSpider Compounds API — Lookups
+  description: 'RSC ChemSpider Compounds API — Lookups. 1 operations. Lead operation: Get Available Data Sources. Self-contained
+    Naftiko capability covering one Rsc business surface.'
+  tags:
+  - Rsc
+  - Lookups
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RSC_API_KEY: RSC_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: chemspider-compounds-lookups
+    baseUri: https://api.rsc.org/compounds/v1
+    description: RSC ChemSpider Compounds API — Lookups business capability. Self-contained, no shared references.
+    resources:
+    - name: lookups-datasources
+      path: /lookups/datasources
+      operations:
+      - name: getdatasources
+        method: GET
+        description: Get Available Data Sources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: apikey
+      value: '{{env.RSC_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: chemspider-compounds-lookups-rest
+    port: 8080
+    description: REST adapter for RSC ChemSpider Compounds API — Lookups. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/lookups/datasources
+      name: lookups-datasources
+      description: REST surface for lookups-datasources.
+      operations:
+      - method: GET
+        name: getdatasources
+        description: Get Available Data Sources
+        call: chemspider-compounds-lookups.getdatasources
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: chemspider-compounds-lookups-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for RSC ChemSpider Compounds API — Lookups. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-available-data-sources
+      description: Get Available Data Sources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: chemspider-compounds-lookups.getdatasources
+      outputParameters:
+      - type: object
+        mapping: $.
