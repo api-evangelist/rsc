@@ -1,74 +1,81 @@
-# RSC - Royal Society of Chemistry
+# RSC (rsc)
 
 The Royal Society of Chemistry (RSC) provides developer APIs through its ChemSpider platform, enabling programmatic access to one of the world's largest chemistry databases with over 88 million unique chemical compounds. The APIs support compound search, structure retrieval, format conversion, and data enrichment for cheminformatics applications.
 
-**Human URL:** https://developer.rsc.org/
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/rsc/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/rsc/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
+
+## Tags
+
+- Chemistry
+- Cheminformatics
+- Chemical Data
+- Science
+
+## Timestamps
+
+- **Created:** 2025-03-01
+- **Modified:** 2026-05-19
 
 ## APIs
 
-| API | Description |
-|-----|-------------|
-| [ChemSpider Compounds API](openapi/rsc-chemspider-compounds-openapi.yml) | Search, filter, and retrieve chemical compound records |
+### ChemSpider Compounds API
 
-## OpenAPI Specifications
+The ChemSpider Compounds API (v1) provides comprehensive access to the RSC ChemSpider chemical database, supporting compound filtering by name, SMILES, InChI, InChIKey, formula, molecular weight, mass, and elemental composition. Authenticated endpoints allow retrieval of compound records, external references, molecular images, and MOL files. The API also supports batch operations and chemical format conversions between SMILES, InChI, InChIKey, and Mol formats.
 
-| Spec | Description |
-|------|-------------|
-| [rsc-chemspider-compounds-openapi.yml](openapi/rsc-chemspider-compounds-openapi.yml) | ChemSpider Compounds API covering filter, records, lookups, and tools |
+- **Human URL:** [https://developer.rsc.org/](https://developer.rsc.org/)
+- **Base URL:** `https://api.rsc.org/compounds/v1`
 
-## Rules
+#### Tags
 
-| Ruleset | Description |
-|---------|-------------|
-| [rsc-spectral-rules.yml](rules/rsc-spectral-rules.yml) | Spectral ruleset enforcing RSC API design conventions |
+- Chemistry
+- Cheminformatics
+- Compounds
+- Chemical Search
 
-## Capabilities
+#### Properties
 
-### Workflow Capabilities
+- [Documentation](https://developer.rsc.org/compounds-v1/apis)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/rsc/refs/heads/main/openapi/rsc-chemspider-compounds-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/rsc-chemspider-compounds.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/rsc-chemspider-compounds.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
-| Capability | Description |
-|------------|-------------|
-| [chemical-research.yaml](capabilities/chemical-research.yaml) | Compound discovery, structure lookup, and format conversion for researchers |
+### ChemSpider Tools API
 
-### Shared Definitions
+The ChemSpider Tools API provides chemical format conversion utilities, supporting conversions between SMILES, InChI, InChIKey, and Mol file formats. It also includes InChIKey validation. The tools are useful for cheminformatics pipelines that need to normalize chemical identifiers across different format conventions.
 
-| Shared | Description |
-|--------|-------------|
-| [chemspider-compounds.yaml](capabilities/shared/chemspider-compounds.yaml) | Per-API consumed definition for the ChemSpider Compounds API |
+- **Human URL:** [https://developer.rsc.org/](https://developer.rsc.org/)
+- **Base URL:** `https://api.rsc.org/compounds/v1`
 
-## Schemas
+#### Tags
 
-| Schema | Description |
-|--------|-------------|
-| [rsc-compound-schema.json](json-schema/rsc-compound-schema.json) | JSON Schema for ChemSpider compound records |
+- Chemistry
+- Format Conversion
+- Cheminformatics
+- Tools
 
-## Structures
+#### Properties
 
-| Structure | Description |
-|-----------|-------------|
-| [rsc-compound-structure.json](json-structure/rsc-compound-structure.json) | JSON structure documentation for ChemSpider data entities |
+- [Documentation](https://developer.rsc.org/compounds-v1/apis)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/rsc/refs/heads/main/openapi/rsc-chemspider-compounds-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/rsc-chemspider-compounds.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/rsc-chemspider-compounds.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
-## JSON-LD
+## Common Properties
 
-| Context | Description |
-|---------|-------------|
-| [rsc-context.jsonld](json-ld/rsc-context.jsonld) | JSON-LD context mapping ChemSpider vocabulary to standard ontologies |
-
-## Examples
-
-| Example | Description |
-|---------|-------------|
-| [rsc-filter-by-name-example.json](examples/rsc-filter-by-name-example.json) | Filter compounds by name (aspirin) |
-| [rsc-get-record-details-example.json](examples/rsc-get-record-details-example.json) | Get compound record details |
-| [rsc-convert-chemical-format-example.json](examples/rsc-convert-chemical-format-example.json) | Convert SMILES to InChI format |
-
-## Vocabulary
-
-| Vocabulary | Description |
-|------------|-------------|
-| [rsc-vocabulary.yml](vocabulary/rsc-vocabulary.yml) | Domain vocabulary for chemistry, cheminformatics, and API operations |
+- [LinkedIn](https://www.linkedin.com/company/rsc-equipment-rental)
+- [Portal](https://developer.rsc.org/)
+- [Authentication](https://developer.rsc.org/)
+- [Sign Up](https://developer.rsc.org/)
+- [Terms of Service](https://www.rsc.org/legal/)
+- [Privacy Policy](https://www.rsc.org/help-legal/legal/privacy/)
 
 ## Maintainers
 
-**FN:** Kin Lane  
+**FN:** Kin Lane
 **Email:** kin@apievangelist.com

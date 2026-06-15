@@ -1,0 +1,422 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RSC ChemSpider Compounds API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Filter",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Filter Compounds By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/filter/name",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Submit a name query to search for chemical compounds matching the specified name. Returns a query ID that can be used to poll for results using the filter status and results endpoints."
+        },
+        {
+          "info": {
+            "name": "Filter Compounds By SMILES",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/filter/smiles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Submit a SMILES string to find matching chemical compounds. Returns a query ID for polling results."
+        },
+        {
+          "info": {
+            "name": "Filter Compounds By InChI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/filter/inchi",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Submit an InChI string to find matching chemical compounds. Returns a query ID for polling results."
+        },
+        {
+          "info": {
+            "name": "Filter Compounds By InChIKey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/filter/inchikey",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Submit an InChIKey to find the matching chemical compound. Returns a query ID for polling results."
+        },
+        {
+          "info": {
+            "name": "Filter Compounds By Formula",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/filter/formula",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search for compounds matching a given molecular formula. Optionally restrict to specific data sources."
+        },
+        {
+          "info": {
+            "name": "Filter Compounds By Mass",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/filter/mass",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search for compounds within a mass range. The mass and mass_range parameters define the target mass and acceptable deviation."
+        },
+        {
+          "info": {
+            "name": "Get Filter Query Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rsc.org/compounds/v1/filter/:queryId/status",
+            "params": [
+              {
+                "name": "queryId",
+                "value": "",
+                "type": "path",
+                "description": "The query ID returned by a filter endpoint"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Poll the status of a previously submitted filter query using its query ID. Returns the current status, result count, and any message."
+        },
+        {
+          "info": {
+            "name": "Get Filter Query Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rsc.org/compounds/v1/filter/:queryId/results",
+            "params": [
+              {
+                "name": "queryId",
+                "value": "",
+                "type": "path",
+                "description": "The query ID returned by a filter endpoint"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based index of first result to return"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the record IDs for a completed filter query. Supports pagination via start and count parameters."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Records",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Record Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rsc.org/compounds/v1/records/:recordId/details",
+            "params": [
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The ChemSpider record ID"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return (e.g., SMILES,Formula,CommonName,MolecularWeight)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve detailed information for a specific compound record by its record ID. Returns fields including SMILES, Formula, mass values, CommonName, reference counts, and 2D/3D mol representations."
+        },
+        {
+          "info": {
+            "name": "Get Records Batch Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/records/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve detailed information for multiple compound records in a single request. Accepts up to 100 record IDs per request."
+        },
+        {
+          "info": {
+            "name": "Get External References",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rsc.org/compounds/v1/records/:recordId/externalreferences",
+            "params": [
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The ChemSpider record ID"
+              },
+              {
+                "name": "dataSources",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of data source names to filter by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve external database references for a compound record. Optionally filter by data source names."
+        },
+        {
+          "info": {
+            "name": "Get Compound Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rsc.org/compounds/v1/records/:recordId/image",
+            "params": [
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The ChemSpider record ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the 2D structural image for a compound record. Returns the image as base64-encoded PNG data."
+        },
+        {
+          "info": {
+            "name": "Get Compound MOL File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rsc.org/compounds/v1/records/:recordId/mol",
+            "params": [
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "The ChemSpider record ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the MOL file for a compound record. Returns the MOL file content as a string."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Lookups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Available Data Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rsc.org/compounds/v1/lookups/datasources",
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of data sources available in ChemSpider. Use these names when filtering compound searches by data source."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tools",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Convert Chemical Format",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/tools/convert",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Convert a chemical identifier from one format to another. Supported input/output formats include SMILES, InChI, InChIKey, and Mol. Valid conversion pairs include: InChI to InChIKey, InChI to Mol, InChI to SMILES, InChIKey to InChI, InChIKey to Mol, Mol to InChI, Mol to InChIKey, and SMILES to InChI."
+        },
+        {
+          "info": {
+            "name": "Validate InChIKey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/tools/validate/inchikey",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Validate whether a given string is a correctly formed InChIKey. Returns a boolean indicating validity."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
