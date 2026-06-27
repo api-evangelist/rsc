@@ -68,7 +68,7 @@ common:
     url: https://developer.rsc.org/
   - type: Authentication
     url: https://developer.rsc.org/
-  - type: SignUp
+  - type: Signup
     url: https://developer.rsc.org/
   - type: TermsOfService
     url: https://www.rsc.org/legal/
