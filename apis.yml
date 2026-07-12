@@ -62,6 +62,10 @@ apis:
         url: >-
           https://raw.githubusercontent.com/api-evangelist/rsc/refs/heads/main/openapi/rsc-chemspider-compounds-openapi.yml
 common:
+  - type: DomainSecurity
+    url: security/rsc-domain-security.yml
+  - type: Authentication
+    url: authentication/rsc-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/rsc-equipment-rental
   - type: Portal

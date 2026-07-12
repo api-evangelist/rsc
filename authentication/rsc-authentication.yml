@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/rsc-chemspider-compounds-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  parameter: apikey
+  description: API key obtained from the RSC Developer Portal at developer.rsc.org. Register
+    and create an application to receive an API key.
+  sources:
+  - openapi/rsc-chemspider-compounds-openapi.yml
