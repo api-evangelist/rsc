@@ -1,0 +1,256 @@
+openapi: 3.1.0
+info:
+  title: RSC ChemSpider Compounds Filter Records API
+  description: The RSC ChemSpider Compounds API provides programmatic access to the ChemSpider chemical database, which contains over 88 million unique chemical compounds. The API supports compound searching by name, SMILES, InChI, InChIKey, molecular formula, mass, and elemental composition. Authenticated users can retrieve compound records with detailed properties, fetch external references, images, and MOL files, and perform batch operations. A tools endpoint supports chemical format conversions and InChIKey validation. All requests require an API key obtained from the RSC Developer Portal.
+  version: '1'
+  contact:
+    name: RSC Developer Support
+    url: https://developer.rsc.org/
+  termsOfService: https://www.rsc.org/legal/
+servers:
+- url: https://api.rsc.org/compounds/v1
+  description: ChemSpider Production API
+tags:
+- name: Records
+  description: Retrieve compound record details, images, and molecular files.
+paths:
+  /records/{recordId}/details:
+    get:
+      operationId: getRecordDetails
+      summary: Get Record Details
+      description: Retrieve detailed information for a specific compound record by its record ID. Returns fields including SMILES, Formula, mass values, CommonName, reference counts, and 2D/3D mol representations.
+      tags:
+      - Records
+      parameters:
+      - name: recordId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: The ChemSpider record ID
+      - name: fields
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma-separated list of fields to return (e.g., SMILES,Formula,CommonName,MolecularWeight)
+      responses:
+        '200':
+          description: Compound record details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompoundRecord'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Record not found
+      security:
+      - apiKeyAuth: []
+  /records/batch:
+    post:
+      operationId: getRecordsBatch
+      summary: Get Records Batch Details
+      description: Retrieve detailed information for multiple compound records in a single request. Accepts up to 100 record IDs per request.
+      tags:
+      - Records
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - recordIds
+              properties:
+                recordIds:
+                  type: array
+                  items:
+                    type: integer
+                  maxItems: 100
+                  description: List of ChemSpider record IDs (max 100)
+                fields:
+                  type: string
+                  description: Comma-separated list of fields to return
+      responses:
+        '200':
+          description: Array of compound record details
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompoundRecord'
+        '401':
+          description: Unauthorized
+      security:
+      - apiKeyAuth: []
+  /records/{recordId}/externalreferences:
+    get:
+      operationId: getExternalReferences
+      summary: Get External References
+      description: Retrieve external database references for a compound record. Optionally filter by data source names.
+      tags:
+      - Records
+      parameters:
+      - name: recordId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: The ChemSpider record ID
+      - name: dataSources
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma-separated list of data source names to filter by
+      responses:
+        '200':
+          description: External references for the record
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExternalReference'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Record not found
+      security:
+      - apiKeyAuth: []
+  /records/{recordId}/image:
+    get:
+      operationId: getRecordImage
+      summary: Get Compound Image
+      description: Retrieve the 2D structural image for a compound record. Returns the image as base64-encoded PNG data.
+      tags:
+      - Records
+      parameters:
+      - name: recordId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: The ChemSpider record ID
+      responses:
+        '200':
+          description: Base64-encoded compound image
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  image:
+                    type: string
+                    description: Base64-encoded PNG image of compound structure
+        '401':
+          description: Unauthorized
+        '404':
+          description: Record not found
+      security:
+      - apiKeyAuth: []
+  /records/{recordId}/mol:
+    get:
+      operationId: getRecordMol
+      summary: Get Compound MOL File
+      description: Retrieve the MOL file for a compound record. Returns the MOL file content as a string.
+      tags:
+      - Records
+      parameters:
+      - name: recordId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: The ChemSpider record ID
+      responses:
+        '200':
+          description: MOL file content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mol:
+                    type: string
+                    description: MOL file string for the compound
+        '401':
+          description: Unauthorized
+        '404':
+          description: Record not found
+      security:
+      - apiKeyAuth: []
+components:
+  schemas:
+    ExternalReference:
+      type: object
+      description: An external database reference for a compound
+      properties:
+        source:
+          type: string
+          description: Name of the external data source
+        sourceUrl:
+          type: string
+          format: uri
+          description: URL of the data source
+        externalId:
+          type: string
+          description: Identifier in the external system
+        externalUrl:
+          type: string
+          format: uri
+          description: Direct URL to the compound in the external system
+    CompoundRecord:
+      type: object
+      description: Detailed information about a chemical compound record
+      properties:
+        id:
+          type: integer
+          description: ChemSpider record ID
+        smiles:
+          type: string
+          description: SMILES representation of the compound
+        formula:
+          type: string
+          description: Molecular formula
+        averageMass:
+          type: number
+          description: Average molecular mass
+        molecularWeight:
+          type: number
+          description: Molecular weight
+        monoisotopicMass:
+          type: number
+          description: Monoisotopic mass
+        nominalMass:
+          type: number
+          description: Nominal mass
+        commonName:
+          type: string
+          description: Common name of the compound
+        referenceCount:
+          type: integer
+          description: Number of references in ChemSpider
+        dataSourceCount:
+          type: integer
+          description: Number of data sources containing this compound
+        pubmedCount:
+          type: integer
+          description: Number of PubMed references
+        rscCount:
+          type: integer
+          description: Number of RSC publications referencing this compound
+        mol2D:
+          type: string
+          description: 2D MOL file representation
+        mol3D:
+          type: string
+          description: 3D MOL file representation
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: API key obtained from the RSC Developer Portal at developer.rsc.org. Register and create an application to receive an API key.

@@ -1,0 +1,111 @@
+openapi: 3.1.0
+info:
+  title: RSC ChemSpider Compounds Filter Tools API
+  description: The RSC ChemSpider Compounds API provides programmatic access to the ChemSpider chemical database, which contains over 88 million unique chemical compounds. The API supports compound searching by name, SMILES, InChI, InChIKey, molecular formula, mass, and elemental composition. Authenticated users can retrieve compound records with detailed properties, fetch external references, images, and MOL files, and perform batch operations. A tools endpoint supports chemical format conversions and InChIKey validation. All requests require an API key obtained from the RSC Developer Portal.
+  version: '1'
+  contact:
+    name: RSC Developer Support
+    url: https://developer.rsc.org/
+  termsOfService: https://www.rsc.org/legal/
+servers:
+- url: https://api.rsc.org/compounds/v1
+  description: ChemSpider Production API
+tags:
+- name: Tools
+  description: Chemical format conversion and validation utilities.
+paths:
+  /tools/convert:
+    post:
+      operationId: convertChemicalFormat
+      summary: Convert Chemical Format
+      description: 'Convert a chemical identifier from one format to another. Supported input/output formats include SMILES, InChI, InChIKey, and Mol. Valid conversion pairs include: InChI to InChIKey, InChI to Mol, InChI to SMILES, InChIKey to InChI, InChIKey to Mol, Mol to InChI, Mol to InChIKey, and SMILES to InChI.'
+      tags:
+      - Tools
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              - inputFormat
+              - outputFormat
+              properties:
+                input:
+                  type: string
+                  description: The chemical identifier to convert
+                inputFormat:
+                  type: string
+                  description: Input format of the identifier
+                  enum:
+                  - SMILES
+                  - InChI
+                  - InChIKey
+                  - Mol
+                outputFormat:
+                  type: string
+                  description: Desired output format
+                  enum:
+                  - SMILES
+                  - InChI
+                  - InChIKey
+                  - Mol
+      responses:
+        '200':
+          description: Converted chemical identifier
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  output:
+                    type: string
+                    description: The converted chemical identifier
+        '400':
+          description: Invalid input or unsupported conversion
+        '401':
+          description: Unauthorized
+      security:
+      - apiKeyAuth: []
+  /tools/validate/inchikey:
+    post:
+      operationId: validateInchikey
+      summary: Validate InChIKey
+      description: Validate whether a given string is a correctly formed InChIKey. Returns a boolean indicating validity.
+      tags:
+      - Tools
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - inchikey
+              properties:
+                inchikey:
+                  type: string
+                  description: The InChIKey string to validate
+      responses:
+        '200':
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                    description: Whether the InChIKey is valid
+        '401':
+          description: Unauthorized
+      security:
+      - apiKeyAuth: []
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: API key obtained from the RSC Developer Portal at developer.rsc.org. Register and create an application to receive an API key.
