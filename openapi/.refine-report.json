@@ -1,0 +1,20 @@
+{
+  "provider": "rsc",
+  "sources": [
+    "rsc-filter-api-openapi.yml",
+    "rsc-lookups-api-openapi.yml",
+    "rsc-records-api-openapi.yml",
+    "rsc-tools-api-openapi.yml"
+  ],
+  "outputs": [
+    "rsc-filter-api-openapi.yml",
+    "rsc-lookups-api-openapi.yml",
+    "rsc-records-api-openapi.yml",
+    "rsc-tools-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
