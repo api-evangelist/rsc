@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RSC ChemSpider Compounds Filter Lookups API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lookups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Available Data Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rsc.org/compounds/v1/lookups/datasources",
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of data sources available in ChemSpider. Use these names when filtering compound searches by data source."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

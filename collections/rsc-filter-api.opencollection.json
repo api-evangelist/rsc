@@ -1,0 +1,206 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RSC ChemSpider Compounds Filter API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Filter",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Filter Compounds By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/filter/name",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Submit a name query to search for chemical compounds matching the specified name. Returns a query ID that can be used to poll for results using the filter status and results endpoints."
+        },
+        {
+          "info": {
+            "name": "Filter Compounds By SMILES",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/filter/smiles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Submit a SMILES string to find matching chemical compounds. Returns a query ID for polling results."
+        },
+        {
+          "info": {
+            "name": "Filter Compounds By InChI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/filter/inchi",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Submit an InChI string to find matching chemical compounds. Returns a query ID for polling results."
+        },
+        {
+          "info": {
+            "name": "Filter Compounds By InChIKey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/filter/inchikey",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Submit an InChIKey to find the matching chemical compound. Returns a query ID for polling results."
+        },
+        {
+          "info": {
+            "name": "Filter Compounds By Formula",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/filter/formula",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search for compounds matching a given molecular formula. Optionally restrict to specific data sources."
+        },
+        {
+          "info": {
+            "name": "Filter Compounds By Mass",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/filter/mass",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search for compounds within a mass range. The mass and mass_range parameters define the target mass and acceptable deviation."
+        },
+        {
+          "info": {
+            "name": "Get Filter Query Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rsc.org/compounds/v1/filter/:queryId/status",
+            "params": [
+              {
+                "name": "queryId",
+                "value": "",
+                "type": "path",
+                "description": "The query ID returned by a filter endpoint"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Poll the status of a previously submitted filter query using its query ID. Returns the current status, result count, and any message."
+        },
+        {
+          "info": {
+            "name": "Get Filter Query Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rsc.org/compounds/v1/filter/:queryId/results",
+            "params": [
+              {
+                "name": "queryId",
+                "value": "",
+                "type": "path",
+                "description": "The query ID returned by a filter endpoint"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based index of first result to return"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the record IDs for a completed filter query. Supports pagination via start and count parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

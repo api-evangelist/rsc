@@ -1,0 +1,168 @@
+{
+  "item": [
+    {
+      "id": "64e878e5-34e7-4255-9a0e-7ddf496e7a44",
+      "name": "Lookups",
+      "description": {
+        "content": "Look up reference data such as available data sources.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ff79180f-6017-4c76-9d2d-d82ad7da42a2",
+          "name": "Get Available Data Sources",
+          "request": {
+            "name": "Get Available Data Sources",
+            "description": {
+              "content": "Retrieve the list of data sources available in ChemSpider. Use these names when filtering compound searches by data source.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookups",
+                "datasources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "47d3d4ce-cb9e-4f5d-9f6d-baa5a88ddd9b",
+              "name": "List of available data sources",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookups",
+                    "datasources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0efe803-0a8b-4b9b-9e1a-6060a756bbdc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookups",
+                    "datasources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rsc.org/compounds/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6fcfd341-59fd-4b26-9fdd-64cab54df984",
+    "name": "RSC ChemSpider Compounds Filter Lookups API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The RSC ChemSpider Compounds API provides programmatic access to the ChemSpider chemical database, which contains over 88 million unique chemical compounds. The API supports compound searching by name, SMILES, InChI, InChIKey, molecular formula, mass, and elemental composition. Authenticated users can retrieve compound records with detailed properties, fetch external references, images, and MOL files, and perform batch operations. A tools endpoint supports chemical format conversions and InChIKey validation. All requests require an API key obtained from the RSC Developer Portal.\n\nContact Support:\n Name: RSC Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

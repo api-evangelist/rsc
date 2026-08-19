@@ -1,0 +1,1089 @@
+{
+  "item": [
+    {
+      "id": "b555f974-55a3-4925-b71f-e150bd0b91ae",
+      "name": "Records",
+      "description": {
+        "content": "Retrieve compound record details, images, and molecular files.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f8292768-b353-4fd0-b588-7a1ba0e1e1ea",
+          "name": "Get Record Details",
+          "request": {
+            "name": "Get Record Details",
+            "description": {
+              "content": "Retrieve detailed information for a specific compound record by its record ID. Returns fields including SMILES, Formula, mass values, CommonName, reference counts, and 2D/3D mol representations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "records",
+                ":recordId",
+                "details"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return (e.g., SMILES,Formula,CommonName,MolecularWeight)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recordId",
+                  "description": "(Required) The ChemSpider record ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "118d3f74-3792-447b-8c31-72542108074f",
+              "name": "Compound record details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    ":recordId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordId",
+                      "description": "(Required) The ChemSpider record ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6001,\n  \"smiles\": \"string\",\n  \"formula\": \"string\",\n  \"averageMass\": 1287.5022514173418,\n  \"molecularWeight\": 9838.759796757604,\n  \"monoisotopicMass\": 5988.649696758513,\n  \"nominalMass\": 8585.802376459591,\n  \"commonName\": \"string\",\n  \"referenceCount\": 1771,\n  \"dataSourceCount\": 5655,\n  \"pubmedCount\": 3878,\n  \"rscCount\": 1804,\n  \"mol2D\": \"string\",\n  \"mol3D\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a72cc01-e02f-4f60-a20d-9f58ff8e6817",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    ":recordId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordId",
+                      "description": "(Required) The ChemSpider record ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5c11ea74-03c0-4bc6-96f4-1510234e9103",
+              "name": "Record not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    ":recordId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordId",
+                      "description": "(Required) The ChemSpider record ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c1b6fb2-1177-4d61-b444-4db0ccec0c30",
+          "name": "Get Records Batch Details",
+          "request": {
+            "name": "Get Records Batch Details",
+            "description": {
+              "content": "Retrieve detailed information for multiple compound records in a single request. Accepts up to 100 record IDs per request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "records",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recordIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"fields\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4ab62e95-949d-4669-842a-be1fbb1ebce9",
+              "name": "Array of compound record details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recordIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"fields\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 9657,\n    \"smiles\": \"string\",\n    \"formula\": \"string\",\n    \"averageMass\": 3377.1560187700366,\n    \"molecularWeight\": 5267.027448270995,\n    \"monoisotopicMass\": 7778.081095693773,\n    \"nominalMass\": 4594.553695064306,\n    \"commonName\": \"string\",\n    \"referenceCount\": 9681,\n    \"dataSourceCount\": 2335,\n    \"pubmedCount\": 4930,\n    \"rscCount\": 3907,\n    \"mol2D\": \"string\",\n    \"mol3D\": \"string\"\n  },\n  {\n    \"id\": 1994,\n    \"smiles\": \"string\",\n    \"formula\": \"string\",\n    \"averageMass\": 6186.811893993062,\n    \"molecularWeight\": 1822.7715629645547,\n    \"monoisotopicMass\": 900.2665599026549,\n    \"nominalMass\": 8224.96589793546,\n    \"commonName\": \"string\",\n    \"referenceCount\": 4437,\n    \"dataSourceCount\": 8787,\n    \"pubmedCount\": 5778,\n    \"rscCount\": 7004,\n    \"mol2D\": \"string\",\n    \"mol3D\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c2d5bb6-14eb-4557-a211-5fc2cadbd305",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recordIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"fields\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "595b0867-7c0b-411a-82de-0b8af77dc086",
+          "name": "Get External References",
+          "request": {
+            "name": "Get External References",
+            "description": {
+              "content": "Retrieve external database references for a compound record. Optionally filter by data source names.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "records",
+                ":recordId",
+                "externalreferences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataSources",
+                  "value": "<string>",
+                  "description": "Comma-separated list of data source names to filter by"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recordId",
+                  "description": "(Required) The ChemSpider record ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fc944aa7-98d3-454c-8d90-1ea64c80cf15",
+              "name": "External references for the record",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    ":recordId",
+                    "externalreferences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataSources",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordId",
+                      "description": "(Required) The ChemSpider record ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"source\": \"string\",\n    \"sourceUrl\": \"http://AUUpVnTqSBUjlmwFpQW.qjTzOIx1NlqRr35j-RLSYfk1JZRxYW.,8CH3ELcDq1nH\",\n    \"externalId\": \"string\",\n    \"externalUrl\": \"http://EVKRT.wqke5s9utCuB6EfTXOziEGmtJV1RmY0x4OAtXnEz9cCi3f\"\n  },\n  {\n    \"source\": \"string\",\n    \"sourceUrl\": \"http://VYiseTshoAWgbLYknteTB.jtgV0u3f17ReJg7M,k6S4An.vHuzebZ0kVeLVGgcBhuyQ1x.hYWm10vVQx1Uxqdgzv.m\",\n    \"externalId\": \"string\",\n    \"externalUrl\": \"https://FZOETrSiujIeXpMjojxdMrcYnIavCXIC.wrWdm79.nV3-s4wn\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82f9e01d-b7d0-4659-b24d-db3ef8281c0a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    ":recordId",
+                    "externalreferences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataSources",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordId",
+                      "description": "(Required) The ChemSpider record ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "df97f0d4-b0c0-4df9-b08f-aefa6e01ea58",
+              "name": "Record not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    ":recordId",
+                    "externalreferences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataSources",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordId",
+                      "description": "(Required) The ChemSpider record ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af849d9e-9c24-424a-ba07-3a07d60a66c5",
+          "name": "Get Compound Image",
+          "request": {
+            "name": "Get Compound Image",
+            "description": {
+              "content": "Retrieve the 2D structural image for a compound record. Returns the image as base64-encoded PNG data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "records",
+                ":recordId",
+                "image"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recordId",
+                  "description": "(Required) The ChemSpider record ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "37f2d875-4b72-4c1b-8bd9-7bdf492c0baa",
+              "name": "Base64-encoded compound image",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    ":recordId",
+                    "image"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordId",
+                      "description": "(Required) The ChemSpider record ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"image\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7aa70fc-5c04-45ad-96f6-2a12cc978efe",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    ":recordId",
+                    "image"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordId",
+                      "description": "(Required) The ChemSpider record ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2a00cd4e-6a98-4794-81d7-7a48373f98f5",
+              "name": "Record not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    ":recordId",
+                    "image"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordId",
+                      "description": "(Required) The ChemSpider record ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "052cad38-172e-4f41-8a4b-00d6fdf41896",
+          "name": "Get Compound MOL File",
+          "request": {
+            "name": "Get Compound MOL File",
+            "description": {
+              "content": "Retrieve the MOL file for a compound record. Returns the MOL file content as a string.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "records",
+                ":recordId",
+                "mol"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recordId",
+                  "description": "(Required) The ChemSpider record ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d40bf0d1-3016-4555-af64-de14c7a70f92",
+              "name": "MOL file content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    ":recordId",
+                    "mol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordId",
+                      "description": "(Required) The ChemSpider record ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"mol\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34cbfeac-5a25-4f6e-878c-563890526058",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    ":recordId",
+                    "mol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordId",
+                      "description": "(Required) The ChemSpider record ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8deedffd-1900-468b-b579-1b013e9798d6",
+              "name": "Record not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "records",
+                    ":recordId",
+                    "mol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordId",
+                      "description": "(Required) The ChemSpider record ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rsc.org/compounds/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a22381a6-a705-44ab-a9ec-d925f82274ec",
+    "name": "RSC ChemSpider Compounds Filter Records API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The RSC ChemSpider Compounds API provides programmatic access to the ChemSpider chemical database, which contains over 88 million unique chemical compounds. The API supports compound searching by name, SMILES, InChI, InChIKey, molecular formula, mass, and elemental composition. Authenticated users can retrieve compound records with detailed properties, fetch external references, images, and MOL files, and perform batch operations. A tools endpoint supports chemical format conversions and InChIKey validation. All requests require an API key obtained from the RSC Developer Portal.\n\nContact Support:\n Name: RSC Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

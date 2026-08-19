@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RSC ChemSpider Compounds Filter Tools API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tools",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Convert Chemical Format",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/tools/convert",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Convert a chemical identifier from one format to another. Supported input/output formats include SMILES, InChI, InChIKey, and Mol. Valid conversion pairs include: InChI to InChIKey, InChI to Mol, InChI to SMILES, InChIKey to InChI, InChIKey to Mol, Mol to InChI, Mol to InChIKey, and SMILES to InChI."
+        },
+        {
+          "info": {
+            "name": "Validate InChIKey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rsc.org/compounds/v1/tools/validate/inchikey",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Validate whether a given string is a correctly formed InChIKey. Returns a boolean indicating validity."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

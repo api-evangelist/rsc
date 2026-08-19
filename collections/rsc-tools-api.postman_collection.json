@@ -1,0 +1,413 @@
+{
+  "item": [
+    {
+      "id": "b05cb3c8-a2e9-429b-8e6b-6e2797c5e3eb",
+      "name": "Tools",
+      "description": {
+        "content": "Chemical format conversion and validation utilities.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c75bfd52-8f81-46c4-ab14-eb5ec1b6617b",
+          "name": "Convert Chemical Format",
+          "request": {
+            "name": "Convert Chemical Format",
+            "description": {
+              "content": "Convert a chemical identifier from one format to another. Supported input/output formats include SMILES, InChI, InChIKey, and Mol. Valid conversion pairs include: InChI to InChIKey, InChI to Mol, InChI to SMILES, InChIKey to InChI, InChIKey to Mol, Mol to InChI, Mol to InChIKey, and SMILES to InChI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tools",
+                "convert"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": \"<string>\",\n  \"inputFormat\": \"<string>\",\n  \"outputFormat\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cb8e432b-becd-466c-bad2-0df855c73e52",
+              "name": "Converted chemical identifier",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tools",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"<string>\",\n  \"inputFormat\": \"<string>\",\n  \"outputFormat\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"output\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "233a2e26-558b-49a2-bb65-421b7cd46461",
+              "name": "Invalid input or unsupported conversion",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tools",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"<string>\",\n  \"inputFormat\": \"<string>\",\n  \"outputFormat\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a649642e-3d4b-4aef-bc90-5d343f5471a7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tools",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"<string>\",\n  \"inputFormat\": \"<string>\",\n  \"outputFormat\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55dcb972-6c4e-4a8c-aba1-67b88c726f83",
+          "name": "Validate InChIKey",
+          "request": {
+            "name": "Validate InChIKey",
+            "description": {
+              "content": "Validate whether a given string is a correctly formed InChIKey. Returns a boolean indicating validity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tools",
+                "validate",
+                "inchikey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inchikey\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "400c638c-84d0-4c05-95bf-06d12bdd8aec",
+              "name": "Validation result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tools",
+                    "validate",
+                    "inchikey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inchikey\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"valid\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71b4ff9d-7604-4594-87e6-cd2a9cb6276c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tools",
+                    "validate",
+                    "inchikey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inchikey\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rsc.org/compounds/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e3b309fe-9e43-4dd4-bcdf-5c02ac652245",
+    "name": "RSC ChemSpider Compounds Filter Tools API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The RSC ChemSpider Compounds API provides programmatic access to the ChemSpider chemical database, which contains over 88 million unique chemical compounds. The API supports compound searching by name, SMILES, InChI, InChIKey, molecular formula, mass, and elemental composition. Authenticated users can retrieve compound records with detailed properties, fetch external references, images, and MOL files, and perform batch operations. A tools endpoint supports chemical format conversions and InChIKey validation. All requests require an API key obtained from the RSC Developer Portal.\n\nContact Support:\n Name: RSC Developer Support",
+      "type": "text/plain"
+    }
+  }
+}
