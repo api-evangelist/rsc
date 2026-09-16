@@ -1,9 +1,9 @@
 aid: rsc
 name: RSC
-description: >-
-  The Royal Society of Chemistry (RSC) provides developer APIs through its ChemSpider platform, enabling programmatic
-  access to one of the world's largest chemistry databases with over 88 million unique chemical compounds. The APIs
-  support compound search, structure retrieval, format conversion, and data enrichment for cheminformatics applications.
+description: The Royal Society of Chemistry (RSC) provides developer APIs through its ChemSpider platform,
+  enabling programmatic access to one of the world's largest chemistry databases with over 88 million
+  unique chemical compounds. The APIs support compound search, structure retrieval, format conversion,
+  and data enrichment for cheminformatics applications.
 type: Index
 deliveryModel:
   model: saas
@@ -35,12 +35,12 @@ position: Consuming
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/rsc.png
 tags:
-  - Chemistry
-  - Cheminformatics
-  - Chemical Data
-  - Science
+- Chemistry
+- Cheminformatics
+- Chemical Data
+- Science
 created: '2025-03-01'
-modified: '2026-05-19'
+modified: '2026-09-16'
 url: https://raw.githubusercontent.com/api-evangelist/rsc/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 apis:
@@ -93,24 +93,26 @@ apis:
   - type: Documentation
     url: https://developer.rsc.org/compounds-v1/apis
 common:
-  - type: AgenticAccess
-    url: agentic-access/rsc-agentic-access.yml
-  - type: DomainSecurity
-    url: security/rsc-domain-security.yml
-  - type: Authentication
-    url: authentication/rsc-authentication.yml
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/rsc-equipment-rental
-  - type: Portal
-    url: https://developer.rsc.org/
-  - type: Authentication
-    url: https://developer.rsc.org/
-  - type: Signup
-    url: https://developer.rsc.org/
-  - type: TermsOfService
-    url: https://www.rsc.org/legal/
-  - type: PrivacyPolicy
-    url: https://www.rsc.org/help-legal/legal/privacy/
+- type: Website
+  url: https://rsc.org
+- type: AgenticAccess
+  url: agentic-access/rsc-agentic-access.yml
+- type: DomainSecurity
+  url: security/rsc-domain-security.yml
+- type: Authentication
+  url: authentication/rsc-authentication.yml
+- type: LinkedIn
+  url: https://www.linkedin.com/company/rsc-equipment-rental
+- type: Portal
+  url: https://developer.rsc.org/
+- type: Authentication
+  url: https://developer.rsc.org/
+- type: Signup
+  url: https://developer.rsc.org/
+- type: TermsOfService
+  url: https://www.rsc.org/legal/
+- type: PrivacyPolicy
+  url: https://www.rsc.org/help-legal/legal/privacy/
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
