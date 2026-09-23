@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: RSC ChemSpider Compounds Filter API
-  description: The RSC ChemSpider Compounds API provides programmatic access to the ChemSpider chemical database, which contains over 88 million unique chemical compounds. The API supports compound searching by name, SMILES, InChI, InChIKey, molecular formula, mass, and elemental composition. Authenticated users can retrieve compound records with detailed properties, fetch external references, images, and MOL files, and perform batch operations. A tools endpoint supports chemical format conversions and InChIKey validation. All requests require an API key obtained from the RSC Developer Portal.
+  description: The RSC ChemSpider Compounds API provides programmatic access to the ChemSpider chemical database, which contains over 88 million unique chemical compounds.
   version: '1'
   contact:
     name: RSC Developer Support
@@ -315,18 +315,6 @@ paths:
       - apiKeyAuth: []
 components:
   schemas:
-    FilterResults:
-      type: object
-      description: Results from a completed filter query
-      properties:
-        queryId:
-          type: string
-          description: The query ID
-        results:
-          type: array
-          items:
-            type: integer
-          description: Array of ChemSpider record IDs matching the query
     FilterStatus:
       type: object
       description: Status of a filter query
@@ -351,6 +339,18 @@ components:
         queryId:
           type: string
           description: Unique identifier for the submitted query
+    FilterResults:
+      type: object
+      description: Results from a completed filter query
+      properties:
+        queryId:
+          type: string
+          description: The query ID
+        results:
+          type: array
+          items:
+            type: integer
+          description: Array of ChemSpider record IDs matching the query
   securitySchemes:
     apiKeyAuth:
       type: apiKey

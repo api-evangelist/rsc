@@ -1,10 +1,7 @@
 {
   "provider": "rsc",
   "sources": [
-    "rsc-filter-api-openapi.yml",
-    "rsc-lookups-api-openapi.yml",
-    "rsc-records-api-openapi.yml",
-    "rsc-tools-api-openapi.yml"
+    "_original/rsc-chemspider-compounds-openapi.yml"
   ],
   "outputs": [
     "rsc-filter-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "rsc-chemspider-compounds-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "rsc-filter-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rsc-lookups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rsc-records-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rsc-tools-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
