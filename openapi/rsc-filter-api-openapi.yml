@@ -315,23 +315,6 @@ paths:
       - apiKeyAuth: []
 components:
   schemas:
-    FilterStatus:
-      type: object
-      description: Status of a filter query
-      properties:
-        status:
-          type: string
-          description: Current query status (Processing, Complete, Failed)
-          enum:
-          - Processing
-          - Complete
-          - Failed
-        count:
-          type: integer
-          description: Number of results found so far
-        message:
-          type: string
-          description: Status message or error description
     QueryResponse:
       type: object
       description: Response from a filter query submission
@@ -351,6 +334,23 @@ components:
           items:
             type: integer
           description: Array of ChemSpider record IDs matching the query
+    FilterStatus:
+      type: object
+      description: Status of a filter query
+      properties:
+        status:
+          type: string
+          description: Current query status (Processing, Complete, Failed)
+          enum:
+          - Processing
+          - Complete
+          - Failed
+        count:
+          type: integer
+          description: Number of results found so far
+        message:
+          type: string
+          description: Status message or error description
   securitySchemes:
     apiKeyAuth:
       type: apiKey
