@@ -315,13 +315,6 @@ paths:
       - apiKeyAuth: []
 components:
   schemas:
-    QueryResponse:
-      type: object
-      description: Response from a filter query submission
-      properties:
-        queryId:
-          type: string
-          description: Unique identifier for the submitted query
     FilterResults:
       type: object
       description: Results from a completed filter query
@@ -334,6 +327,13 @@ components:
           items:
             type: integer
           description: Array of ChemSpider record IDs matching the query
+    QueryResponse:
+      type: object
+      description: Response from a filter query submission
+      properties:
+        queryId:
+          type: string
+          description: Unique identifier for the submitted query
     FilterStatus:
       type: object
       description: Status of a filter query

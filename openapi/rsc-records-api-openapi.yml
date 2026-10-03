@@ -184,24 +184,6 @@ paths:
       - apiKeyAuth: []
 components:
   schemas:
-    ExternalReference:
-      type: object
-      description: An external database reference for a compound
-      properties:
-        source:
-          type: string
-          description: Name of the external data source
-        sourceUrl:
-          type: string
-          format: uri
-          description: URL of the data source
-        externalId:
-          type: string
-          description: Identifier in the external system
-        externalUrl:
-          type: string
-          format: uri
-          description: Direct URL to the compound in the external system
     CompoundRecord:
       type: object
       description: Detailed information about a chemical compound record
@@ -248,6 +230,24 @@ components:
         mol3D:
           type: string
           description: 3D MOL file representation
+    ExternalReference:
+      type: object
+      description: An external database reference for a compound
+      properties:
+        source:
+          type: string
+          description: Name of the external data source
+        sourceUrl:
+          type: string
+          format: uri
+          description: URL of the data source
+        externalId:
+          type: string
+          description: Identifier in the external system
+        externalUrl:
+          type: string
+          format: uri
+          description: Direct URL to the compound in the external system
   securitySchemes:
     apiKeyAuth:
       type: apiKey
