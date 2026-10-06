@@ -40,7 +40,7 @@ tags:
 - Chemical Data
 - Science
 created: '2025-03-01'
-modified: '2026-09-16'
+modified: '2026-10-06'
 url: https://raw.githubusercontent.com/api-evangelist/rsc/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 apis:
@@ -93,6 +93,8 @@ apis:
   - type: Documentation
     url: https://developer.rsc.org/compounds-v1/apis
 common:
+- url: https://www.rsc.org/news
+  type: Blog
 - type: Website
   url: https://rsc.org
 - type: AgenticAccess
