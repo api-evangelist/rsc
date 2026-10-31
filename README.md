@@ -1,4 +1,4 @@
-# RSC (rsc)
+# RSC
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,80 +66,161 @@
 
 The Royal Society of Chemistry (RSC) provides developer APIs through its ChemSpider platform, enabling programmatic access to one of the world's largest chemistry databases with over 88 million unique chemical compounds. The APIs support compound search, structure retrieval, format conversion, and data enrichment for cheminformatics applications.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/rsc/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/rsc/refs/heads/main/apis.yml)
+**Areas:** Chemistry · Cheminformatics · Chemical Data · Science
 
-## Scope
+## RSC on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for RSC is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/rsc/](https://apis.io/providers/rsc/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (4)
 
-- Chemistry
-- Cheminformatics
-- Chemical Data
-- Science
+- [RSC Filter API](https://apis.io/apis/rsc/rsc-filter-api/) — Search and filter chemical compounds by various properties.
+- [RSC Lookups API](https://apis.io/apis/rsc/rsc-lookups-api/) — Look up reference data such as available data sources.
+- [RSC Records API](https://apis.io/apis/rsc/rsc-records-api/) — Retrieve compound record details, images, and molecular files.
+- [RSC Tools API](https://apis.io/apis/rsc/rsc-tools-api/) — Chemical format conversion and validation utilities.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-03-01
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### ChemSpider Compounds API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-The ChemSpider Compounds API (v1) provides comprehensive access to the RSC ChemSpider chemical database, supporting compound filtering by name, SMILES, InChI, InChIKey, formula, molecular weight, mass, and elemental composition. Authenticated endpoints allow retrieval of compound records, external references, molecular images, and MOL files. The API also supports batch operations and chemical format conversions between SMILES, InChI, InChIKey, and Mol formats.
+- [Rsc Agentic Access](https://apis.io/agentic-access/rsc/rsc-agentic-access/)
 
-- **Human URL:** [https://developer.rsc.org/](https://developer.rsc.org/)
-- **Base URL:** `https://api.rsc.org/compounds/v1`
+#### JSON Schema (1)
 
-#### Tags
+The data models the API reads and writes.
 
-- Chemistry
-- Cheminformatics
-- Compounds
-- Chemical Search
+- [ChemSpider Compound](https://apis.io/schemas/rsc/rsc-compound/)
 
-#### Properties
+#### JSON Structure (1)
 
-- [Documentation](https://developer.rsc.org/compounds-v1/apis)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/rsc/refs/heads/main/openapi/rsc-chemspider-compounds-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/rsc-chemspider-compounds.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rsc-chemspider-compounds.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Data models expressed in JSON Structure.
 
-### ChemSpider Tools API
+- [Rsc Compound Structure](https://apis.io/json-structure/rsc/rsc-compound-structure/)
 
-The ChemSpider Tools API provides chemical format conversion utilities, supporting conversions between SMILES, InChI, InChIKey, and Mol file formats. It also includes InChIKey validation. The tools are useful for cheminformatics pipelines that need to normalize chemical identifiers across different format conventions.
+#### JSON-LD (1)
 
-- **Human URL:** [https://developer.rsc.org/](https://developer.rsc.org/)
-- **Base URL:** `https://api.rsc.org/compounds/v1`
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags
+- [Rsc Context](https://apis.io/jsonld/rsc/rsc-context/)
 
-- Chemistry
-- Format Conversion
-- Cheminformatics
-- Tools
+#### Vocabulary (1)
 
-#### Properties
+The provider's domain terms, defined.
 
-- [Documentation](https://developer.rsc.org/compounds-v1/apis)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/rsc/refs/heads/main/openapi/rsc-chemspider-compounds-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/rsc-chemspider-compounds.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rsc-chemspider-compounds.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [RSC ChemSpider Vocabulary](https://apis.io/vocabularies/rsc/rsc-vocabulary/)
 
-## Common Properties
+#### Examples (3)
 
-- [LinkedIn](https://www.linkedin.com/company/rsc-equipment-rental)
-- [Portal](https://developer.rsc.org/)
-- [Authentication](https://developer.rsc.org/)
-- [Sign Up](https://developer.rsc.org/)
-- [Terms of Service](https://www.rsc.org/legal/)
-- [Privacy Policy](https://www.rsc.org/help-legal/legal/privacy/)
+Example requests and responses.
 
-## Maintainers
+- [Rsc Convert Chemical Format Example](https://apis.io/examples/rsc/rsc-convert-chemical-format-example/)
+- [Rsc Filter By Name Example](https://apis.io/examples/rsc/rsc-filter-by-name-example/)
+- [Rsc Get Record Details Example](https://apis.io/examples/rsc/rsc-get-record-details-example/)
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [RSC ChemSpider Compounds API](https://apis.io/collections/rsc/open-rsc-chemspider-compounds/)
+- [RSC ChemSpider Compounds Filter API](https://apis.io/collections/rsc/open-rsc-filter-api/)
+- [RSC ChemSpider Compounds Filter Lookups API](https://apis.io/collections/rsc/open-rsc-lookups-api/)
+- [RSC ChemSpider Compounds Filter Records API](https://apis.io/collections/rsc/open-rsc-records-api/)
+- [RSC ChemSpider Compounds Filter Tools API](https://apis.io/collections/rsc/open-rsc-tools-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [RSC — jsonschema rules](https://apis.io/rules/rsc/rsc-jsonschema-spectral-rules/)
+- [RSC API Rules](https://apis.io/rules/rsc/rsc-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Rsc Authentication](https://apis.io/security/rsc/rsc-authentication/)
+- [Rsc Domain Security](https://apis.io/security/rsc/rsc-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Rsc Plans Pricing](https://apis.io/plans/rsc/rsc-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Rsc Rate Limits](https://apis.io/rate-limits/rsc/rsc-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Rsc Finops](https://apis.io/finops/rsc/rsc-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://rsc.org)
+- [Blog](https://www.rsc.org/news)
+- [Terms of service](https://www.rsc.org/legal/)
+- [Privacy policy](https://www.rsc.org/help-legal/legal/privacy/)
+
+## API Evangelist rating
+
+**Kin Score 31.9** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 58.9 |
+| Contract governance | 13.6 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 31.6 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 20.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/rsc/](https://apis.io/providers/rsc/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for RSC: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/rsc/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
